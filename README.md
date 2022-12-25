@@ -1,6 +1,6 @@
 # cz-conventional-gitmoji
 
-A [commitizen](https://github.com/commitizen-tools/commitizen) plugin that combines [gitmoji](https://gitmoji.dev/) and conventional.
+A [commitizen](https://github.com/commitizen-tools/commitizen) plugin that combines [gitmoji](https://gitmoji.dev/) and [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Installation
 
@@ -24,7 +24,7 @@ cz --name cz_gitmoji commit
 
 or by setting it in your **pyproject.toml**
 
-```text
+```toml
 [tool.commitizen]
 name = "cz_gitmoji"
 ```
@@ -42,7 +42,7 @@ $ gitmojify -m "init: initial version"
 
 To use it as a pre-commit hook, install this packages as well as `commitizen` and put the following into your **.pre-commit-config.yaml**
 
-```text
+```yaml
 repos:
   - repo: https://github.com/ljnsn/cz-conventional-gitmoji
     rev: main
