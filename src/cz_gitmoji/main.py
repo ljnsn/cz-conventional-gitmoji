@@ -38,7 +38,8 @@ class CommitizenGitmojiCz(BaseCommitizen):
         rf"^(BREAKING[\-\ ]CHANGE"
         rf"|{GJ_BOOM}? ?boom"
         rf"|{GJ_FEAT}? ?feat"
-        rf"|{GJ_FIX}? ?(hot)?fix"
+        rf"|{GJ_FIX}? ?fix"
+        rf"|{GJ_HOTFIX}? ?hotfix"
         rf"|{GJ_REFACTOR}? +refactor"
         rf"|{GJ_PERF}? ?perf)"
         r"(\(.+\))?"  # scope
@@ -51,7 +52,8 @@ class CommitizenGitmojiCz(BaseCommitizen):
             (r"^BREAKING[\-\ ]CHANGE", MAJOR),
             (rf"^{GJ_BOOM}? ?boom", MAJOR),
             (rf"^{GJ_FEAT}? ?feat", MINOR),
-            (rf"^{GJ_FIX}? ?(hot)?fix", PATCH),
+            (rf"^{GJ_FIX}? ?fix", PATCH),
+            (rf"^{GJ_HOTFIX}? ?hotfix", PATCH),
             (rf"^{GJ_REFACTOR}? ?refactor", PATCH),
             (rf"^{GJ_PERF}? ?perf", PATCH),
         )
