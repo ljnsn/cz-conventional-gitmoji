@@ -31,6 +31,8 @@ version = "0.1.0"
 tag_format = "$version"
 version_files = ["pyproject.toml:^version"]
 
+[tool.black]
+target-version = ["py37", "py38", "py39", "py310"]
 [tool.ruff]
 ignore_extend = [ "F405" ]
 
