@@ -63,6 +63,12 @@ exclude_lines = [
 [tool.coverage.xml]
 output = "reports/coverage.xml"
 
+[tool.pytest.ini_options]
+addopts = """--color=yes --doctest-modules --exitfirst --failed-first \
+  --strict-markers --strict-config --verbosity=2 \
+  --junitxml=reports/pytest.xml --cov"""
+testpaths = ["src", "tests"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
