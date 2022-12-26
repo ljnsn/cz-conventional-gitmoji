@@ -46,7 +46,7 @@ def cz_gitmoji(config: BaseConfig) -> CommitizenGitmojiCz:
                 "time": "",
                 "footer": "BREAKING CHANGE: this breaks stuff",
             },
-            f"{GJ_REFACTOR} refactor(dto): bla bla\n\nThe woman said to him, Where are you?\n\nBREAKING CHANGE: this breaks stuff",
+            f"{GJ_REFACTOR} refactor(dto)!: bla bla\n\nThe woman said to him, Where are you?\n\nBREAKING CHANGE: this breaks stuff",
         ),
         (
             {
@@ -58,7 +58,7 @@ def cz_gitmoji(config: BaseConfig) -> CommitizenGitmojiCz:
                 "time": "30m",
                 "footer": "",
             },
-            f"{GJ_TEST} test(controllers): xpto >>> 30m\n\nSo out of the heavens and the earth and the woman, and between your offspring and hers; he will strike his heel.",
+            f"{GJ_TEST} test(controllers)!: xpto >>> 30m\n\nSo out of the heavens and the earth and the woman, and between your offspring and hers; he will strike his heel.",
         ),
         (
             {
