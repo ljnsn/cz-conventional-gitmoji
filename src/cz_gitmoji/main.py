@@ -252,14 +252,18 @@ class CommitizenGitmojiCz(BaseCommitizen):
             scope = f"({scope})"
         if body:
             body = f"\n\n{body}"
-        if is_breaking_change and footer and not footer.startswith("BREAKING CHANGE:"):
+        if is_breaking_change and footer and not footer.startswith("BREAKING CHANGE"):
             footer = f"BREAKING CHANGE: {footer}"
         if footer:
             footer = f"\n\n{footer}"
         if time:
             time = f" >>> {time}"
 
-        message = f"{prefix}{scope}: {subject}{time}{body}{footer}"
+        prefix_scope = f"{prefix}{scope}"
+        if is_breaking_change:
+            prefix_scope = f"{prefix_scope}!"
+
+        message = f"{prefix_scope}: {subject}{time}{body}{footer}"
 
         return message
 
