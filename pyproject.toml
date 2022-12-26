@@ -42,6 +42,27 @@ profile = "black"
 [tool.ruff]
 ignore_extend = [ "F405" ]
 
+[tool.coverage.run]
+branch = true
+parallel = true
+command_line = "--module pytest"
+data_file = "reports/.coverage"
+source = ["src"]
+
+[tool.coverage.report]
+fail_under = 80
+precision = 1
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.xml]
+output = "reports/coverage.xml"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
