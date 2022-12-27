@@ -31,7 +31,8 @@ ruff = "^0.0.194"
 [tool.commitizen]
 name = "cz_gitmoji"
 version = "0.1.1"
-tag_format = "$version"
+bump_message = "🔖 bump(release): v$current_version → v$new_version"
+tag_format = "v$version"
 version_files = ["pyproject.toml:^version"]
 update_changelog_on_bump = true
 
