@@ -1,7 +1,7 @@
 from typing import List
 
-from shared.spec import mojis
 from shared.model import Gitmoji
+from shared.spec import mojis
 
 # global pattern to validate commit messages
 PATTERN = (
