@@ -52,8 +52,8 @@ jobs:
       github.event_name == 'push' &&
       github.ref_name == 'main' &&
       github.ref_type == 'branch' &&
-      !startsWith(github.event.head_commit.message, '🔖 bump:') &&
-      !startsWith(github.event.head_commit.message, 'bump:')
+      !startsWith(github.event.head_commit.message, '🔖 bump(release):') &&
+      !startsWith(github.event.head_commit.message, 'bump(release):')
     name: "Bump version and create changelog with commitizen"
     steps:
       - name: Check out
