@@ -3,7 +3,6 @@ from typing import Any
 import pytest
 from commitizen import defaults
 from commitizen.config import BaseConfig
-from commitizen.cz.base import BaseCommitizen
 
 from cz_gitmoji.main import CommitizenGitmojiCz
 from shared.gitmojis import *
