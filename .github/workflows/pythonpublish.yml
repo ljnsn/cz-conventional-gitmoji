@@ -22,4 +22,4 @@ jobs:
       env:
         POETRY_PYPI_TOKEN_PYPI: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
       run: |
-        ./scripts/publish
+        ./scripts/publish.sh
