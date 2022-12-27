@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cz-conventional-gitmoji"
-version = "0.1.0"
+version = "0.1.1"
 description = "A commitizen plugin that combines gitmoji and conventional."
 authors = ["ljnsn <82611987+ljnsn@users.noreply.github.com>"]
 license = "MIT"
@@ -30,7 +30,7 @@ ruff = "^0.0.194"
 
 [tool.commitizen]
 name = "cz_gitmoji"
-version = "0.1.0"
+version = "0.1.1"
 tag_format = "$version"
 version_files = ["pyproject.toml:^version"]
 update_changelog_on_bump = true
