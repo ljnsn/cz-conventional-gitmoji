@@ -173,6 +173,15 @@ class CommitizenGitmojiCz(BaseCommitizen):
         f"{GJ_HEALTH} health": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
         # None: init, bump, merge
     }
+    # order sections in changelog. all other sections are ordered alphabetically
+    change_type_order = [
+        f"{GJ_BOOM} Boom",
+        f"{GJ_FEAT} Features",
+        f"{GJ_FIX}{GJ_HOTFIX} Fixes",
+        f"{GJ_SECURITY} Security",
+        f"{GJ_REFACTOR} Refactorings",
+        f"{GJ_PERF} Performance",
+    ]
 
     def questions(self) -> List[Dict[str, Any]]:
         """Return the questions to ask the user."""
