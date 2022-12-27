@@ -1,0 +1,84 @@
+[tool.poetry]
+name = "cz-conventional-gitmoji"
+version = "0.1.0"
+description = "A commitizen plugin that combines gitmoji and conventional."
+authors = ["ljnsn <82611987+ljnsn@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [
+  {include = "shared", from = "src"},
+  {include = "cz_gitmoji", from = "src"},
+  {include = "gitmojify", from = "src"}
+]
+repository = "https://github.com/ljnsn/cz-conventional-gitmoji"
+
+[tool.poetry.scripts]
+gitmojify = "gitmojify.mojify:run"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+commitizen = "^2.38.0"
+attrs = "^22.2.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.12.0"
+pytest = "^7.2.0"
+pytest-cov = "^4.0.0"
+isort = "^5.11.4"
+coverage = {extras = ["toml"], version = "^7.0.1"}
+ruff = "^0.0.194"
+
+[tool.commitizen]
+name = "cz_gitmoji"
+version = "0.1.0"
+tag_format = "$version"
+version_files = ["pyproject.toml:^version"]
+update_changelog_on_bump = true
+
+[tool.black]
+target-version = ["py37", "py38", "py39", "py310"]
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+extend-ignore = [
+  # Line too long
+  "E501",
+  # unable to detect undefined names
+  "F403",
+  # may be undefined or defined from star imports
+  "F405",
+]
+src = ["src", "test"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+command_line = "--module pytest"
+data_file = "reports/.coverage"
+source = ["src"]
+
+[tool.coverage.report]
+fail_under = 80
+precision = 1
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.xml]
+output = "reports/coverage.xml"
+
+[tool.pytest.ini_options]
+addopts = """--color=yes --doctest-modules --exitfirst --failed-first \
+  --strict-markers --strict-config --verbosity=2 \
+  --junitxml=reports/pytest.xml --cov"""
+testpaths = ["src", "tests"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

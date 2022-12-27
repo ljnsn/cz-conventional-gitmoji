@@ -1,0 +1,11 @@
+- id: conventional-gitmoji
+  name: gitmojify
+  description: >
+    Add a gitmoji to a commit message complying with commitizen-gitmoji.
+    Assumes that the commit message has been checked and is valid.
+  entry: gitmojify
+  args: [--commit-msg-file]
+  stages: [commit-msg]
+  language: python
+  language_version: python3
+  minimum_pre_commit_version: "1.4.3"
