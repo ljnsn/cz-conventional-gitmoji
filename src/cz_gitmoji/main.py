@@ -131,7 +131,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
         # database
         f"{GJ_DB} db": f"{GJ_DB} Database",
         # ignore
-        f"{GJ_IGNORE}": f"{GJ_IGNORE} Ignore",
+        f"{GJ_IGNORE} ignore": f"{GJ_IGNORE} Ignore",
         # snapshots
         f"{GJ_SNAP} snap": f"{GJ_SNAP} Snapshots",
         # experiments
