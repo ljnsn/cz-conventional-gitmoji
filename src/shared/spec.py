@@ -1,6 +1,5 @@
 from shared.gitmojis import *
 
-
 mojis = [
     {
         "type": "fix",

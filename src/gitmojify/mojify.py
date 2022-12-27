@@ -4,8 +4,8 @@ import sys
 from pathlib import Path
 from typing import Dict
 
-from shared.utils import get_gitmojis, get_pattern
 from shared.model import Gitmoji
+from shared.utils import get_gitmojis, get_pattern
 
 
 def get_args() -> argparse.Namespace:

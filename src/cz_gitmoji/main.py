@@ -7,8 +7,8 @@ from commitizen.cz.base import BaseCommitizen
 from commitizen.cz.utils import multiple_line_breaker, required_validator
 from commitizen.defaults import MAJOR, MINOR, PATCH
 
-from shared.gitmojis import *
 from shared import utils
+from shared.gitmojis import *
 
 __all__ = ("CommitizenGitmojiCz",)
 
