@@ -51,6 +51,7 @@ extend-ignore = [
   # may be undefined or defined from star imports
   "F405",
 ]
+unfixable = ["F401", "F841"]
 src = ["src", "test"]
 
 [tool.coverage.run]
