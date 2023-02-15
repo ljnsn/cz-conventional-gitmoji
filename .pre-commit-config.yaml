@@ -62,6 +62,12 @@ repos:
         stages: [commit-msg]
         language: system
         require_serial: true
+      - id: ruff
+        name: Fix with ruff
+        entry: poetry run ruff src/ tests/
+        language: system
+        types: [python]
+        args: ["--force-exclude", "--fixable=F401,F841"]
       - id: black
         name: black
         entry: black
