@@ -3,6 +3,6 @@
 set -e
 set -x
 
-ruff src tests
-black src tests --check
-isort src tests --check-only
+poetry run ruff src tests
+poetry run black src tests --check
+poetry run isort src tests --check-only
