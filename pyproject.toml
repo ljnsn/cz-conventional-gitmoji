@@ -36,7 +36,7 @@ version_files = ["pyproject.toml:^version"]
 update_changelog_on_bump = true
 
 [tool.black]
-target-version = ["py37", "py38", "py39", "py310"]
+target-version = ["py37", "py38", "py39", "py310", "py311"]
 
 [tool.ruff]
 extend-ignore = [
@@ -47,8 +47,24 @@ extend-ignore = [
   # may be undefined or defined from star imports
   "F405",
 ]
+fix = true
 unfixable = ["F401", "F841"]
 src = ["src", "test"]
+
+[tool.ruff.per-file-ignores]
+# ignore usage of `assert` in tests
+"*/tests/*" = ["S101"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
+
+[tool.ruff.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["classmethod", "pydantic.validator"]
 
 [tool.coverage.run]
 branch = true
