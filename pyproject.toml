@@ -38,9 +38,6 @@ update_changelog_on_bump = true
 [tool.black]
 target-version = ["py37", "py38", "py39", "py310"]
 
-[tool.isort]
-profile = "black"
-
 [tool.ruff]
 extend-ignore = [
   # Line too long
