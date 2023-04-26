@@ -17,7 +17,7 @@ gitmojify = "gitmojify.mojify:run"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-commitizen = "^2.42.0"
+commitizen = ">=2.42,<4.0"
 attrs = ">=22.2,<24.0"
 
 [tool.poetry.group.dev.dependencies]

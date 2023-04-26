@@ -136,28 +136,29 @@ files = [
 
 [[package]]
 name = "commitizen"
-version = "2.42.1"
+version = "3.1.0"
 description = "Python commitizen client tool"
 category = "main"
 optional = false
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.7,<4.0"
 files = [
-    {file = "commitizen-2.42.1-py3-none-any.whl", hash = "sha256:fad7d37cfae361a859b713d4ac591859d5ca03137dd52de4e1bd208f7f45d5dc"},
-    {file = "commitizen-2.42.1.tar.gz", hash = "sha256:eac18c7c65587061aac6829534907aeb208405b8230bfd35ec08503c228a7f17"},
+    {file = "commitizen-3.1.0-py3-none-any.whl", hash = "sha256:cfd0d8f6a2259bd52b42f0dbbb8de171110104af89884b844e4ce30668f82c7d"},
+    {file = "commitizen-3.1.0.tar.gz", hash = "sha256:b09999c2a411ec5e9dbbb40aca43cff355e4a3da5f3dca69fbaed7a87d1559c2"},
 ]
 
 [package.dependencies]
-argcomplete = ">=1.12.1,<2.1"
-charset-normalizer = ">=2.1.0,<3.0.0"
+argcomplete = ">=1.12.1,<2.2"
+charset-normalizer = ">=2.1.0,<4"
 colorama = ">=0.4.1,<0.5.0"
 decli = ">=0.5.2,<0.6.0"
+importlib_metadata = ">=4.13,<5"
 jinja2 = ">=2.10.3"
 packaging = ">=19"
 pyyaml = ">=3.08"
 questionary = ">=1.4.0,<2.0.0"
-termcolor = {version = ">=1.1,<3", markers = "python_version >= \"3.7\""}
+termcolor = ">=1.1,<3"
 tomlkit = ">=0.5.3,<1.0.0"
-typing-extensions = ">=4.0.1,<5.0.0"
+typing-extensions = {version = ">=4.0.1,<5.0.0", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "coverage"
@@ -694,4 +695,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "a8c721face8067c4070fab89bf6537605d279043509ca4c0802de860f4f612ef"
+content-hash = "f21c12b8ec9fdcd7673d3ca906175f64e0ab384e617657439e8fa890f39706a4"
