@@ -39,7 +39,7 @@ update_changelog_on_bump = true
 target-version = ["py37", "py38", "py39", "py310", "py311"]
 
 [tool.ruff]
-extend-ignore = [
+ignore = [
   # Line too long
   "E501",
   # unable to detect undefined names
