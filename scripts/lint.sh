@@ -5,3 +5,4 @@ set -x
 
 poetry run ruff src tests
 poetry run black src tests --check
+poetry run mypy src tests
