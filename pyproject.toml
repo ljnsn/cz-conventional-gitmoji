@@ -97,6 +97,9 @@ addopts = """--color=yes --doctest-modules --exitfirst --failed-first \
   --junitxml=reports/pytest.xml --cov"""
 testpaths = ["src", "tests"]
 
+[tool.mypy]
+ignore_missing_imports = true
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
