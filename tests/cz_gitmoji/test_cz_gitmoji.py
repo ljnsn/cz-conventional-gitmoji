@@ -38,7 +38,7 @@ def test_parse_subject(text: str, expected: str) -> None:
 def test_missing_subject(text: Optional[str]) -> None:
     """Verify that an empty subject raises an error."""
     with pytest.raises(AnswerRequiredError, match="Subject is required."):
-        parse_subject(text)
+        parse_subject(text)  # type: ignore[arg-type]
 
 
 def test_questions(cz_gitmoji: CommitizenGitmojiCz) -> None:
