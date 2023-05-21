@@ -20,7 +20,7 @@ gitmojify = "gitmojify.mojify:run"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-commitizen = "^2.42.0"
+commitizen = "^3.2.2"
 attrs = "^23.1.0"
 
 [tool.poetry.group.dev.dependencies]
