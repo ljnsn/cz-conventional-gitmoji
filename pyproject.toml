@@ -12,6 +12,9 @@ packages = [
 ]
 repository = "https://github.com/ljnsn/cz-conventional-gitmoji"
 
+[tool.poetry.plugins."commitizen.plugin"]
+plugin = "cz_gitmoji.main:CommitizenGitmojiCz"
+
 [tool.poetry.scripts]
 gitmojify = "gitmojify.mojify:run"
 
