@@ -1,3 +1,21 @@
+## v0.2.0 (2023-05-21)
+
+### ✨ Features
+
+- move to new plugin format
+
+### 🐛🚑️ Fixes
+
+- fix plugin name
+
+### 💚👷 CI & Build
+
+- **ruff**: use extend-fixable
+
+### 📌➕⬇️ ➖⬆️  Dependencies
+
+- bump commitizen
+
 ## v0.1.3 (2023-05-02)
 
 ### build
