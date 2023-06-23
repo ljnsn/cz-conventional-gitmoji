@@ -29,7 +29,7 @@ or by setting it in your **pyproject.toml**
 name = "cz_gitmoji"
 ```
 
-This will make `commitizen` use the commit message parsing rules defined by this plugin, which are 100% compatible with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/). As such, the gitmojis are completely optional and all commands will continue to validate commit messages in conventional format just fine. This is useful if you're transitioning an existing repo to `contentional-gitmoji` or you work in a team in which some colleagues don't like gitmojis.
+This will make `commitizen` use the commit message parsing rules defined by this plugin, which are 100% compatible with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/). As such, the gitmojis are completely optional and all commands will continue to validate commit messages in conventional format just fine. This is useful if you're transitioning an existing repo to `cz-conventional-gitmoji` or you work in a team in which some colleagues don't like gitmojis.
 
 ### gitmojify
 
