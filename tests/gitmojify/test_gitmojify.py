@@ -49,7 +49,7 @@ def test_run_file(tmp_path: Path, message: str) -> None:
         return_value=mock.MagicMock(commit_msg_file=filepath.as_posix(), message=None),
     ):
         mojify.run()
-    assert filepath.read_text() == f"{GJ_FEAT} feat: some new feature"
+    assert filepath.read_text(encoding="utf-8") == f"{GJ_FEAT} feat: some new feature"
 
 
 def test_run_message(message: str, capsys) -> None:
