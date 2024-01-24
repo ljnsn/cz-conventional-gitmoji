@@ -1,3 +1,6 @@
+from pathlib import Path
+from unittest import mock
+
 import pytest
 
 from gitmojify import mojify
@@ -29,3 +32,32 @@ def test_grouped_gitmojis() -> None:
 def test_gitmojify(message_in: str, message_out: str) -> None:
     """Verify the correct icon is prepended to the message."""
     assert mojify.gitmojify(message_in) == message_out
+
+
+@pytest.fixture(name="message")
+def fixture_message() -> str:
+    """Return a commit message."""
+    return "feat: some new feature"
+
+
+def test_run_file(tmp_path: Path, message: str) -> None:
+    """Verify the commit message is modified."""
+    filepath = tmp_path / "commit-msg"
+    filepath.write_text(message)
+    with mock.patch(
+        "argparse.ArgumentParser.parse_args",
+        return_value=mock.MagicMock(commit_msg_file=filepath.as_posix(), message=None),
+    ):
+        mojify.run()
+    assert filepath.read_text() == f"{GJ_FEAT} feat: some new feature"
+
+
+def test_run_message(message: str, capsys) -> None:
+    """Verify the commit message is modified."""
+    with mock.patch(
+        "argparse.ArgumentParser.parse_args",
+        return_value=mock.MagicMock(commit_msg_file=None, message=message),
+    ):
+        mojify.run()
+    captured = capsys.readouterr()
+    assert captured.out == f"{GJ_FEAT} feat: some new feature"
