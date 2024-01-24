@@ -52,7 +52,7 @@ def test_run_file(tmp_path: Path, message: str) -> None:
     assert filepath.read_text(encoding="utf-8") == f"{GJ_FEAT} {message}"
 
 
-def test_run_message(message: str, capsys) -> None:
+def test_run_message(message: str, capsys: pytest.CaptureFixture[str]) -> None:
     """Verify the commit message is modified."""
     with mock.patch(
         "argparse.ArgumentParser.parse_args",
