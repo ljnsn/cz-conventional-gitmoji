@@ -1,3 +1,42 @@
+## v0.2.1 (2024-01-24)
+
+### 🐛🚑️ Fixes
+
+- **gitmojify**: force encoding to utf8
+
+### build
+
+- **deps**: bump actions/setup-python from 4 to 5
+- **deps**: bump actions/checkout from 3 to 4
+
+### ✅🤡🧪 Tests
+
+- **gitmojify**: use message in assertion
+- **gitmojfy**: use correct encoding in test
+- **gitmojify**: add tests for running gitmojify
+
+### 🏷️ Types
+
+- add type annotation for capsys
+- add py.typed markers
+
+### 💚👷 CI & Build
+
+- add windows to test matrix
+
+### 📌➕⬇️ ➖⬆️  Dependencies
+
+- mypy
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- run mypy on lint
+- **mypy**: ignore missing imports
+
+### 🚨 Linting
+
+- ignore invalid arg in test
+
 ## v0.2.0 (2023-05-21)
 
 ### ✨ Features
