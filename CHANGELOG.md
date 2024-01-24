@@ -1,3 +1,13 @@
+## v0.2.2 (2024-01-24)
+
+### 🐛🚑️ Fixes
+
+- bump
+
+### 💚👷 CI & Build
+
+- set python version to use in deploy to 3.11
+
 ## v0.2.1 (2024-01-24)
 
 ### 🐛🚑️ Fixes
