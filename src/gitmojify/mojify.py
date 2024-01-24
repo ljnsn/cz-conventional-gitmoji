@@ -53,7 +53,7 @@ def run() -> None:
     if args.commit_msg_file:
         filepath = Path(args.commit_msg_file)
         msg = filepath.read_text()
-        with filepath.open("w") as f:
+        with filepath.open("w", encoding="utf-8") as f:
             f.write(gitmojify(msg))
     else:
         msg = args.message
