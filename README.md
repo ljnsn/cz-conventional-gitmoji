@@ -45,9 +45,15 @@ To use it as a pre-commit hook, install this packages as well as `commitizen` an
 ```yaml
 repos:
   - repo: https://github.com/ljnsn/cz-conventional-gitmoji
-    rev: main
+    rev: 0.2.4
     hooks:
       - id: conventional-gitmoji
+```
+
+Make sure to install the relevant pre-commit hooks with
+
+```bash
+pre-commit install --install-hooks
 ```
 
 Commit with a message in conventional format that contains a valid type mapped by conventional gitmoji and the gitmoji will automagically be added.
@@ -55,10 +61,10 @@ Commit with a message in conventional format that contains a valid type mapped b
 ## Features
 
 - [x] Enable conventional gitmoji commit messages via `cz commit`.
+- [x] Add hook to automatically prepend the appropriate gitmoji for the commit's type.
 - [ ] Add `--simple-emojis` option to use only the emojis relating to `cz_conventional_commits` types.
 - [ ] Add `--simple-types` option to use only the types used by `cz_conventional_commits`.
 - [ ] Add `--conventional` option to put the emoji in the commit message, making it compatible with `cz_conventional_commits`.
-- [x] Add hook to automatically prepend the appropriate gitmoji for the commit's type.
 
 ## Inspiration
 
