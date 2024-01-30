@@ -6,9 +6,9 @@ authors = ["ljnsn <82611987+ljnsn@users.noreply.github.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-  {include = "shared", from = "src"},
-  {include = "cz_gitmoji", from = "src"},
-  {include = "gitmojify", from = "src"}
+  { include = "shared", from = "src" },
+  { include = "cz_gitmoji", from = "src" },
+  { include = "gitmojify", from = "src" },
 ]
 repository = "https://github.com/ljnsn/cz-conventional-gitmoji"
 
@@ -22,14 +22,16 @@ gitmojify = "gitmojify.mojify:run"
 python = "^3.7"
 commitizen = "^3.2.2"
 attrs = "^23.1.0"
+setuptools = { version = "*", python = ">=3.12" }
 
 [tool.poetry.group.dev.dependencies]
 black = ">=22.12,<24.0"
 pytest = "^7.2.0"
 pytest-cov = "^4.0.0"
-coverage = {extras = ["toml"], version = "^7.0.1"}
+coverage = { extras = ["toml"], version = "^7.0.1" }
 ruff = ">=0.0.246,<0.1.16"
 mypy = "^1.3.0"
+pre-commit = ">=2.0"
 
 [tool.commitizen]
 name = "cz_gitmoji"
@@ -82,10 +84,10 @@ fail_under = 80
 precision = 1
 show_missing = true
 exclude_lines = [
-    "pragma: no cover",
-    "@overload",
-    'if __name__ == "__main__":',
-    "if TYPE_CHECKING:",
+  "pragma: no cover",
+  "@overload",
+  'if __name__ == "__main__":',
+  "if TYPE_CHECKING:",
 ]
 
 [tool.coverage.xml]
