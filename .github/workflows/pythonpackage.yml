@@ -40,7 +40,7 @@ jobs:
       - name: Test
         run: python -m poetry run bash scripts/test.sh
       - name: Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
 
   bump-version:
     runs-on: ubuntu-latest
