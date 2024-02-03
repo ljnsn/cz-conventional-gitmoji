@@ -45,6 +45,10 @@ update_changelog_on_bump = true
 target-version = ["py37", "py38", "py39", "py310", "py311"]
 
 [tool.ruff]
+fix = true
+src = ["src", "test"]
+
+[tool.ruff.lint]
 ignore = [
   # Line too long
   "E501",
@@ -53,22 +57,20 @@ ignore = [
   # may be undefined or defined from star imports
   "F405",
 ]
-fix = true
 unfixable = ["F401", "F841"]
-src = ["src", "test"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # ignore usage of `assert` in tests
 "*/tests/*" = ["S101"]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 # Disallow all relative imports.
 ban-relative-imports = "all"
 
-[tool.ruff.pep8-naming]
+[tool.ruff.lint.pep8-naming]
 # Allow Pydantic's `@validator` decorator to trigger class method treatment.
 classmethod-decorators = ["classmethod", "pydantic.validator"]
 
