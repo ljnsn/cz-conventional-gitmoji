@@ -53,13 +53,15 @@ jobs:
       !startsWith(github.event.head_commit.message, 'bump(release):')
     name: "Bump version and create changelog with commitizen"
     steps:
-      - if: github.actor == 'dependabot[bot]'
+      - name: Checkout
+        if: github.actor == 'dependabot[bot]'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ github.token }}
           submodules: recursive
-      - if: github.actor != 'dependabot[bot]'
+      - name: Checkout
+        if: github.actor != 'dependabot[bot]'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
