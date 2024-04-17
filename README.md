@@ -4,11 +4,7 @@ A [commitizen](https://github.com/commitizen-tools/commitizen) plugin that combi
 
 ## Installation
 
-```bash
-poetry add cz-conventional-gitmoji
-```
-
-or with pip:
+With `pip` or any other package manager of your choice, the usual way:
 
 ```bash
 pip install cz-conventional-gitmoji
