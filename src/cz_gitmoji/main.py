@@ -18,9 +18,6 @@ def parse_scope(text: str) -> str:
         return ""
 
     scope = text.strip().split()
-    if len(scope) == 1:
-        return scope[0]
-
     return "-".join(scope)
 
 
