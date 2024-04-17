@@ -40,12 +40,10 @@ tag_format = "v$version"
 version_files = ["pyproject.toml:^version"]
 update_changelog_on_bump = true
 
-[tool.black]
-target-version = ["py37", "py38", "py39", "py310", "py311"]
-
 [tool.ruff]
 fix = true
 src = ["src", "test"]
+target-version = "py37"
 
 [tool.ruff.lint]
 ignore = [
