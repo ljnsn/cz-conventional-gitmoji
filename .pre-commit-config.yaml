@@ -64,13 +64,14 @@ repos:
         require_serial: true
       - id: ruff
         name: Fix with ruff
-        entry: poetry run ruff src/ tests/
+        entry: ruff
+        args: ["--extend-fixable=ERA001,F401,F841"]
+        require_serial: true
         language: system
         types: [python]
-        args: ["--force-exclude", "--extend-fixable=F401,F841"]
-      - id: black
-        name: black
-        entry: black
+      - id: ruff
+        name: Format with ruff
+        entry: ruff format
         require_serial: true
         language: system
         types: [python]
