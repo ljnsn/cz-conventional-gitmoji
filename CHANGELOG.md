@@ -1,3 +1,37 @@
+## v0.3.0 (2024-04-17)
+
+### ✨ Features
+
+- add chore type
+
+### build
+
+- **deps**: bump codecov/codecov-action from 3 to 4
+
+### ✅🤡🧪 Tests
+
+- **gitmojify**: check against moji list
+- **cz-gitmoji**: check number of choices is the same as number of mojis
+
+### 💚👷 CI & Build
+
+- add job name
+- **dependabot**: use different token for dependabot
+- run script directly
+- bump pre commit hooks
+
+### 📝💡 Documentation
+
+- **readme**: add note about install pre-commit hooks
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **ruff**: adapt to 0.2.0
+
+### 🩹 fix-simple
+
+- **cz-gitmoji**: remove unnecessary early return
+
 ## v0.2.4 (2024-01-30)
 
 ### 🐛🚑️ Fixes
