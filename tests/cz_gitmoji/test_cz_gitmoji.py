@@ -4,6 +4,7 @@ import pytest
 from commitizen.cz.exceptions import AnswerRequiredError
 
 from cz_gitmoji.main import CommitizenGitmojiCz, parse_scope, parse_subject
+from shared.spec import mojis
 
 
 @pytest.mark.parametrize(
@@ -46,7 +47,7 @@ def test_questions(cz_gitmoji: CommitizenGitmojiCz) -> None:
     questions = cz_gitmoji.questions()
     assert isinstance(questions, list)
     assert isinstance(questions[0], dict)
-    assert len(questions[0]["choices"]) == 73
+    assert len(questions[0]["choices"]) == len(mojis)
 
 
 def test_message(
