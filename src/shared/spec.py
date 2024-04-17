@@ -439,4 +439,10 @@ mojis = [
         "code": ":safety_vest:",
         "desc": "Add or update code related to validation.",
     },
+    {
+        "type": "chore",
+        "icon": GJ_CHORE,
+        "code": ":broom:",
+        "desc": "Commit changes related to miscelaneous chores.",
+    },
 ]
