@@ -5,13 +5,14 @@ import pytest
 
 from gitmojify import mojify
 from shared.gitmojis import *
+from shared.spec import mojis
 
 
 def test_grouped_gitmojis() -> None:
     """Verify gitmojis are grouped correctly."""
     grouped_gitmojis = mojify.grouped_gitmojis()
     assert isinstance(grouped_gitmojis, dict)
-    assert len(grouped_gitmojis) == 73
+    assert len(grouped_gitmojis) == len(mojis)
 
 
 @pytest.mark.parametrize(
