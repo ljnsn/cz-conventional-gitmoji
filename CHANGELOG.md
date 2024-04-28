@@ -1,3 +1,27 @@
+## v0.3.1 (2024-04-28)
+
+### 🐛🚑️ Fixes
+
+- bump pattern breaking recognition
+
+### 💚👷 CI & Build
+
+- use ruff for formatting
+
+### 📌➕⬇️ ➖⬆️  Dependencies
+
+- black
+
+### 📝💡 Documentation
+
+- **readme**: remove poetry specific mention
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- remove black config and add ruff target version
+- loosen dependency constraints
+- remove upper bound on ruff
+
 ## v0.3.0 (2024-04-17)
 
 ### ✨ Features
