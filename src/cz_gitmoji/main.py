@@ -32,7 +32,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
     # pattern to match messages for bumping
     # if none of these match, version will not be bumped (unless manually specified)
     bump_pattern = (
-        rf"^(BREAKING[\-\ ]CHANGE"
+        rf"^((BREAKING[\-\ ]CHANGE"
         rf"|{GJ_BOOM}? ?boom"
         rf"|{GJ_FEAT}? ?feat"
         rf"|{GJ_FIX}? ?fix"
@@ -40,7 +40,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
         rf"|{GJ_REFACTOR}? +refactor"
         rf"|{GJ_PERF}? ?perf)"
         r"(\(.+\))?"  # scope
-        r"(!)?"  # breaking
+        r"!?):"  # breaking
     )
     # map types to SemVer
     bump_map = OrderedDict(
