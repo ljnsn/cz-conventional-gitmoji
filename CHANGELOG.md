@@ -1,3 +1,9 @@
+## v0.3.2 (2024-05-21)
+
+### 🐛🚑️ Fixes
+
+- **cz-gitmoji**: add bump map for major version zero
+
 ## v0.3.1 (2024-04-28)
 
 ### 🐛🚑️ Fixes
