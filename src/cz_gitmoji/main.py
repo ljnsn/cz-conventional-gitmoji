@@ -55,6 +55,18 @@ class CommitizenGitmojiCz(BaseCommitizen):
             (rf"^{GJ_PERF}? ?perf", PATCH),
         )
     )
+    bump_map_major_version_zero = OrderedDict(
+        (
+            (r"^.+!$", MINOR),
+            (r"^BREAKING[\-\ ]CHANGE", MINOR),
+            (rf"^{GJ_BOOM}? ?boom", MINOR),
+            (rf"^{GJ_FEAT}? ?feat", MINOR),
+            (rf"^{GJ_FIX}? ?fix", PATCH),
+            (rf"^{GJ_HOTFIX}? ?hotfix", PATCH),
+            (rf"^{GJ_REFACTOR}? ?refactor", PATCH),
+            (rf"^{GJ_PERF}? ?perf", PATCH),
+        )
+    )
     # parse information for generating the change log
     commit_parser = (
         rf"^(?P<change_type>{utils.get_type_group_pattern()}|BREAKING CHANGE)"
