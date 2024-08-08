@@ -7,6 +7,8 @@ from typing import Dict
 from shared.model import Gitmoji
 from shared.utils import get_gitmojis, get_pattern
 
+UTF8 = "utf-8"
+
 
 def get_args() -> argparse.Namespace:
     """Parse command line arguments."""
@@ -52,8 +54,11 @@ def run() -> None:
     args = get_args()
     if args.commit_msg_file:
         filepath = Path(args.commit_msg_file)
-        msg = filepath.read_text()
-        with filepath.open("w", encoding="utf-8") as f:
+        # TODO: commit message file encoding can be set via git config
+        # key 'i18n.commitEncoding' and defaults to UTF-8, get encoding
+        # from there.
+        msg = filepath.read_text(encoding=UTF8)
+        with filepath.open("w", encoding=UTF8) as f:
             f.write(gitmojify(msg))
     else:
         msg = args.message
