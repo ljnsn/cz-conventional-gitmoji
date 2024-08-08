@@ -1,3 +1,13 @@
+## v0.3.3 (2024-08-08)
+
+### 🐛🚑️ Fixes
+
+- **mojify**: set git message read encoding
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **pre-commit**: fix ruff check command
+
 ## v0.3.2 (2024-05-21)
 
 ### 🐛🚑️ Fixes
