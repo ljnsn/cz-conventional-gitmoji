@@ -1,0 +1,25 @@
+# Changes here will be overwritten by Copier
+_commit: 17f8989
+_src_path: git@github.com:ljnsn/copier-python-poly.git
+author_email: info@ljnsn.com
+author_name: ljnsn
+ci: true
+ci_provider: github
+commitizen: true
+coverage: true
+cz_gitmoji: true
+description: Cool story bro
+license: MIT
+loguru: false
+maximum_python_version: ''
+minimum_python_version: '3.8'
+mypy: false
+package_manager: uv
+pre_commit: true
+project_name: cz-conventional-gitmoji
+project_snake: cz_gitmoji
+pytest: true
+ruff: true
+sqlalchemy: false
+structure: src
+web_app: false

@@ -1,0 +1,1 @@
+"""Conventional gitmoji commitizen plugin."""

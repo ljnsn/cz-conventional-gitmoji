@@ -1,49 +1,53 @@
-[tool.poetry]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["src/cz_gitmoji", "src/gitmojify", "src/shared"]
+
+[project]
 name = "cz-conventional-gitmoji"
 version = "0.3.3"
 description = "A commitizen plugin that combines gitmoji and conventional."
-authors = ["ljnsn <82611987+ljnsn@users.noreply.github.com>"]
-license = "MIT"
+authors = [{ name = "ljnsn", email = "info@ljnsn.com" }]
 readme = "README.md"
-packages = [
-  { include = "shared", from = "src" },
-  { include = "cz_gitmoji", from = "src" },
-  { include = "gitmojify", from = "src" },
-]
-repository = "https://github.com/ljnsn/cz-conventional-gitmoji"
+license = "MIT"
+requires-python = ">=3.7"
+dependencies = ["commitizen>=3.2.2", "attrs>=23.1.0"]
 
-[tool.poetry.plugins."commitizen.plugin"]
+[project.entry-points."commitizen.plugin"]
 cz_gitmoji = "cz_gitmoji.main:CommitizenGitmojiCz"
 
-[tool.poetry.scripts]
+[project.scripts]
 gitmojify = "gitmojify.mojify:run"
 
-[tool.poetry.dependencies]
-python = "^3.7"
-commitizen = ">=3.2.2"
-attrs = ">=23.1.0"
-setuptools = { version = "*", python = ">=3.12" }
-
-[tool.poetry.group.dev.dependencies]
-pytest = ">=7.2.0"
-pytest-cov = ">=4.0.0"
-coverage = { extras = ["toml"], version = ">=7.0.1" }
-ruff = ">=0.3.7"
-mypy = ">=1.3.0"
-pre-commit = ">=2.0"
+[tool.uv]
+dev-dependencies = [
+  "coverage[toml]>=7.2.7",
+  "ipdb>=0.13.13",
+  "ipython>=7.16.1,!=8.18.0",
+  "mypy>=1.4.1",
+  "pre-commit>=2.0",
+  "pytest-cov>=4.1.0",
+  "pytest>=7.4.4",
+  "ruff>=0.2.2",
+]
 
 [tool.commitizen]
 name = "cz_gitmoji"
-version = "0.3.3"
-bump_message = "🔖 bump(release): v$current_version → v$new_version"
+version_provider = "pep621"
 tag_format = "v$version"
-version_files = ["pyproject.toml:^version"]
+bump_message = "🔖 bump(release): v$current_version → v$new_version"
 update_changelog_on_bump = true
 
 [tool.ruff]
 fix = true
-src = ["src", "test"]
 target-version = "py37"
+src = ["src", "tests"]
+
+[tool.ruff.format]
+line-ending = "lf"
+indent-style = "space"
 
 [tool.ruff.lint]
 ignore = [
@@ -60,16 +64,27 @@ unfixable = ["F401", "F841"]
 # ignore usage of `assert` in tests
 "*/tests/*" = ["S101"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["tests"]
+
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint.flake8-tidy-imports]
-# Disallow all relative imports.
 ban-relative-imports = "all"
 
 [tool.ruff.lint.pep8-naming]
-# Allow Pydantic's `@validator` decorator to trigger class method treatment.
-classmethod-decorators = ["classmethod", "pydantic.validator"]
+classmethod-decorators = ["classmethod"]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = """--color=yes --doctest-modules --exitfirst --failed-first \
+  --strict-markers --strict-config --verbosity=2 \
+  --junitxml=reports/pytest.xml"""
+filterwarnings = ["error"]
+testpaths = ["tests"]
 
 [tool.coverage.run]
 branch = true
@@ -82,6 +97,7 @@ source = ["src"]
 fail_under = 80
 precision = 1
 show_missing = true
+skip_covered = true
 exclude_lines = [
   "pragma: no cover",
   "@overload",
@@ -91,16 +107,3 @@ exclude_lines = [
 
 [tool.coverage.xml]
 output = "reports/coverage.xml"
-
-[tool.pytest.ini_options]
-addopts = """--color=yes --doctest-modules --exitfirst --failed-first \
-  --strict-markers --strict-config --verbosity=2 \
-  --junitxml=reports/pytest.xml --cov"""
-testpaths = ["src", "tests"]
-
-[tool.mypy]
-ignore_missing_imports = true
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
