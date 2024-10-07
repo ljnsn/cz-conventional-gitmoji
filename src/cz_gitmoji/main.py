@@ -1,3 +1,7 @@
+"""Gitmoji commitizen style."""
+
+__all__ = ("CommitizenGitmojiCz",)
+
 import re
 from collections import OrderedDict
 from pathlib import Path
@@ -9,8 +13,6 @@ from commitizen.defaults import MAJOR, MINOR, PATCH
 
 from shared import utils
 from shared.gitmojis import *
-
-__all__ = ("CommitizenGitmojiCz",)
 
 
 def parse_scope(text: str) -> str:
