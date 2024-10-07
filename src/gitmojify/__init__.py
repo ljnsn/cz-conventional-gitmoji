@@ -1,0 +1,1 @@
+"""Mojify your git commits."""
