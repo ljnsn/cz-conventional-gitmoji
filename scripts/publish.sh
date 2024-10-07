@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-poetry publish --build
+set -e
+
+uv build
+uv publish

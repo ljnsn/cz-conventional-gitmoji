@@ -3,4 +3,4 @@
 set -e
 set -x
 
-poetry run pytest --cov src --cov-report xml tests
+uv run pytest --cov src --cov-report xml tests
