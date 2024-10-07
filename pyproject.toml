@@ -39,6 +39,7 @@ version_provider = "pep621"
 tag_format = "v$version"
 bump_message = "🔖 bump(release): v$current_version → v$new_version"
 update_changelog_on_bump = true
+major_version_zero = true
 
 [tool.ruff]
 fix = true
