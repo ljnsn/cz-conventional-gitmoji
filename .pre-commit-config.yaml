@@ -1,14 +1,13 @@
-# https://pre-commit.com
-default_language_version:
-  python: python3
 default_install_hook_types: [commit-msg, pre-commit]
 default_stages: [commit, manual]
 fail_fast: true
 minimum_pre_commit_version: "1.4.3"
+
 repos:
   - repo: meta
     hooks:
       - id: check-useless-excludes
+
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
     hooks:
@@ -18,8 +17,9 @@ repos:
       - id: python-no-eval
       - id: python-no-log-warn
       - id: text-unicode-replacement-char
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -29,6 +29,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-json
       - id: check-merge-conflict
+        args: [--assume-in-merge]
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
       - id: check-toml
@@ -46,6 +47,23 @@ repos:
         args: [--pytest-test-first]
       - id: trailing-whitespace
         types: [python]
+
+  # change to use yamlfix or prettier
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.14.0
+    hooks:
+      - id: pretty-format-yaml
+        args:
+          - --autofix
+          - --preserve-quotes
+          - --indent=2
+          - --offset=2
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.3.3
+    hooks:
+      - id: uv-lock
+
   - repo: local
     hooks:
       - id: commitizen
@@ -55,6 +73,7 @@ repos:
         stages: [commit-msg]
         language: system
         require_serial: true
+
       - id: conventional-gitmoji
         name: gitmojify
         entry: gitmojify
@@ -62,6 +81,14 @@ repos:
         stages: [commit-msg]
         language: system
         require_serial: true
+
+      # Prevent committing .rej files
+      - id: forbidden-files
+        name: forbidden files
+        entry: found Copier update rejection files; review and remove them before merging.
+        language: fail
+        files: "\\.rej$"
+
       - id: ruff
         name: Fix with ruff
         entry: ruff check
@@ -69,6 +96,7 @@ repos:
         require_serial: true
         language: system
         types: [python]
+
       - id: ruff
         name: Format with ruff
         entry: ruff format
