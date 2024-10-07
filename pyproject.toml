@@ -42,7 +42,7 @@ update_changelog_on_bump = true
 
 [tool.ruff]
 fix = true
-target-version = "py37"
+target-version = "py38"
 src = ["src", "tests"]
 
 [tool.ruff.format]
