@@ -7,7 +7,7 @@ packages = ["src/cz_gitmoji", "src/gitmojify", "src/shared"]
 
 [project]
 name = "cz-conventional-gitmoji"
-version = "0.4.1"
+version = "0.4.2"
 description = "A commitizen plugin that combines gitmoji and conventional."
 authors = [{ name = "ljnsn", email = "info@ljnsn.com" }]
 readme = "README.md"
