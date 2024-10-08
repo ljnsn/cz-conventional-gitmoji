@@ -18,4 +18,4 @@ class Gitmoji:
     @property
     def name(self) -> str:
         """The name property."""
-        return f"{self.icon} {self.type}: {self.desc}"
+        return f"{self.value}: {self.desc}"
