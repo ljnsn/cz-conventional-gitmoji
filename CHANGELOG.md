@@ -1,3 +1,9 @@
+## v0.4.4 (2024-10-08)
+
+### 🐛🚑️ Fixes
+
+- **cz-gitmoji**: move back dunder var
+
 ## v0.4.3 (2024-10-08)
 
 ### 🐛🚑️ Fixes
