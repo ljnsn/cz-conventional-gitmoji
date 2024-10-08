@@ -1,3 +1,32 @@
+## v0.4.0 (2024-10-08)
+
+### 🐛🚑️ Fixes
+
+- drop support for python3.7
+
+### 🎨🏗️ Style & Architecture
+
+- add docstrings
+- add docstring and fix magic
+
+### 💚👷 CI & Build
+
+- update pipeline for uv
+
+### 📝💡 Documentation
+
+- add note about commitizen hook extra dep
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **commitizen**: set major version zero to true
+- **ruff**: set target to 3.8
+- update scripts for uv
+
+### 🧑‍💻 Developer Experience
+
+- switch to uv
+
 ## v0.3.3 (2024-08-08)
 
 ### 🐛🚑️ Fixes
