@@ -25,6 +25,5 @@ jobs:
       - name: Publish
         env:
           UV_PUBLISH_TOKEN: ${{ secrets.POETRY_PYPI_TOKEN_PYPI }}
-          UV_PUBLISH_USERNAME: __token__
         run: |
           ./scripts/publish.sh
