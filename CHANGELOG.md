@@ -1,3 +1,18 @@
+## v0.4.3 (2024-10-08)
+
+### 🐛🚑️ Fixes
+
+- **hatch**: build
+
+### 💚👷 CI & Build
+
+- make sure git uses lf
+- set default shell to bash
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **lint**: use --diff instead of --check
+
 ## v0.4.2 (2024-10-08)
 
 ### 🐛🚑️ Fixes
