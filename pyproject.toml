@@ -7,7 +7,6 @@ packages = ["src/cz_gitmoji", "src/gitmojify", "src/shared"]
 
 [tool.hatch.build.targets.sdist]
 include = ["src", "pyproject.toml", "README.md"]
-exclude = [".gitignore"]
 
 [project]
 name = "cz-conventional-gitmoji"
@@ -17,7 +16,7 @@ authors = [{ name = "ljnsn", email = "info@ljnsn.com" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.8"
-dependencies = ["commitizen>=3.2.2", "attrs>=23.1.0"]
+dependencies = ["attrs>=23.1.0", "commitizen>=3.9.1"]
 
 [project.entry-points."commitizen.plugin"]
 cz_gitmoji = "cz_gitmoji.main:CommitizenGitmojiCz"
