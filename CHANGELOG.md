@@ -1,3 +1,17 @@
+## v0.4.5 (2024-10-08)
+
+### 🐛🚑️ Fixes
+
+- **shared**: reduce duplication
+
+### ⏪️ Reversions
+
+- "🐛 fix(cz-gitmoji): move back dunder var"
+
+### 📌➕⬇️ ➖⬆️  Dependencies
+
+- bump all
+
 ## v0.4.4 (2024-10-08)
 
 ### 🐛🚑️ Fixes
