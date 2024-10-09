@@ -445,4 +445,16 @@ mojis = [
         "code": ":broom:",
         "desc": "Commit changes related to miscelaneous chores.",
     },
+    {
+        "type": "squash",
+        "icon": GJ_SQUASH,
+        "code": ":fly:",
+        "desc": "Squash commits.",
+    },
+    {
+        "type": "fixup",
+        "icon": GJ_FIXUP,
+        "code": ":dotted_line_face:",
+        "desc": "Fixup commits.",
+    },
 ]
