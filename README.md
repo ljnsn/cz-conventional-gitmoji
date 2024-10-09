@@ -64,6 +64,90 @@ pre-commit install --install-hooks
 
 Commit with a message in conventional format that contains a valid type mapped by conventional gitmoji and the gitmoji will automagically be added.
 
+### Type mappings
+
+<details>
+<summary>Types to gitmojis</summary>
+
+| Type | Emoji |
+|------|-------|
+| `fix` | 🐛 |
+| `feat` | ✨ |
+| `docs` | 📝 |
+| `style` | 🎨 |
+| `refactor` | ♻️ |
+| `perf` | ⚡️ |
+| `test` | ✅ |
+| `build` | 👷 |
+| `ci` | 💚 |
+| `revert` | ⏪️ |
+| `dump` | 🔥 |
+| `hotfix` | 🚑️ |
+| `deploy` | 🚀 |
+| `ui` | 💄 |
+| `init` | 🎉 |
+| `security` | 🔒️ |
+| `secret` | 🔐 |
+| `bump` | 🔖 |
+| `fix`-lint | 🚨 |
+| `wip` | 🚧 |
+| `dep-drop` | ⬇️ |
+| `dep-bump` | ⬆️ |
+| `pin` | 📌 |
+| `analytics` | 📈 |
+| `dep-add` | ➕ |
+| `dep-rm` | ➖ |
+| `config` | 🔧 |
+| `script` | 🔨 |
+| `lang` | 🌐 |
+| `typo` | ✏️ |
+| `poop` | 💩 |
+| `merge` | 🔀 |
+| `package` | 📦️ |
+| `external` | 👽️ |
+| `resource` | 🚚 |
+| `license` | 📄 |
+| `boom` | 💥 |
+| `asset` | 🍱 |
+| `accessibility` | ♿️ |
+| `source-docs` | 💡 |
+| `beer` | 🍻 |
+| `text` | 💬 |
+| `db` | 🗃️ |
+| `logs-add` | 🔊 |
+| `logs-rm` | 🔇 |
+| `people` | 👥 |
+| `ux` | 🚸 |
+| `arch` | 🏗️ |
+| `design` | 📱 |
+| `mock` | 🤡 |
+| `egg` | 🥚 |
+| `ignore` | 🙈 |
+| `snap` | 📸 |
+| `experiment` | ⚗️ |
+| `seo` | 🔍️ |
+| `types` | 🏷️ |
+| `seed` | 🌱 |
+| `flag` | 🚩 |
+| `catch` | 🥅 |
+| `animation` | 💫 |
+| `deprecation` | 🗑️ |
+| `auth` | 🛂 |
+| `fix-simple` | 🩹 |
+| `exploration` | 🧐 |
+| `dead` | ⚰️ |
+| `test-fail` | 🧪 |
+| `logic` | 👔 |
+| `health` | 🩺 |
+| `infra` | 🧱 |
+| `devxp` | 🧑‍💻 |
+| `money` | 💸 |
+| `threading` | 🧵 |
+| `validation` | 🦺 |
+| `chore` | 🧹 |
+
+</details>
+
 ## Features
 
 - [x] Enable conventional gitmoji commit messages via `cz commit`.
