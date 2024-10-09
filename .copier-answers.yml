@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: 17f8989
+_commit: v0.0.1
 _src_path: git@github.com:ljnsn/copier-python-poly.git
 author_email: info@ljnsn.com
 author_name: ljnsn
@@ -8,7 +8,7 @@ ci_provider: github
 commitizen: true
 coverage: true
 cz_gitmoji: true
-description: Cool story bro
+description: A commitizen plugin that combines gitmoji and conventional.
 license: MIT
 loguru: false
 maximum_python_version: ''
