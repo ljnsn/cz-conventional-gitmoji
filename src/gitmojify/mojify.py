@@ -2,9 +2,10 @@ import argparse
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from commitizen import config
+from commitizen.exceptions import ConfigFileNotFound
 
 from shared.model import Gitmoji
 from shared.utils import get_gitmojis, get_pattern
@@ -42,7 +43,12 @@ def _grouped_gitmojis() -> Dict[str, Gitmoji]:
     return {moji.type: moji for moji in get_gitmojis()}
 
 
-def gitmojify(message: str, allowed_prefixes: List[str], *, convert: bool) -> str:
+def gitmojify(
+    message: str,
+    allowed_prefixes: Optional[List[str]] = None,
+    *,
+    convert: bool = False,
+) -> str:
     """
     Gitmojify the commit message.
 
@@ -59,9 +65,11 @@ def gitmojify(message: str, allowed_prefixes: List[str], *, convert: bool) -> st
     Returns:
         The gitmojified message.
     """
-    if any(map(message.startswith, allowed_prefixes)):
+    if any(map(message.startswith, allowed_prefixes or [])):
         if convert:
             first_word, *rest = message.split()
+            if first_word.endswith(":"):
+                first_word = first_word[:-1]
             message = f"{first_word.lower()}: {' '.join(rest)}"
         else:
             return message
@@ -77,11 +85,21 @@ def gitmojify(message: str, allowed_prefixes: List[str], *, convert: bool) -> st
     return f"{icon} {message}"
 
 
+def _get_allowed_prefixes(args: argparse.Namespace) -> List[str]:
+    """Return the allowed prefixes."""
+    if args.allowed_prefixes:
+        return args.allowed_prefixes
+    try:
+        cfg = config.read_cfg(args.config)
+    except ConfigFileNotFound:
+        return []
+    return cfg.settings["allowed_prefixes"]
+
+
 def run() -> None:
     """The pre-commit hook that modifies the commit message."""
     args = _get_args()
-    cz_cfg = config.read_cfg(args.config)
-    allowed_prefixes = args.allowed_prefixes or cz_cfg.settings["allowed_prefixes"]
+    allowed_prefixes = _get_allowed_prefixes(args)
     if args.commit_msg_file:
         filepath = Path(args.commit_msg_file)
         # TODO: commit message file encoding can be set via git config
