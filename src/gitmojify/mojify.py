@@ -12,7 +12,7 @@ from shared.utils import get_gitmojis, get_pattern
 UTF8 = "utf-8"
 
 
-def get_args() -> argparse.Namespace:
+def _get_args() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -37,7 +37,7 @@ def get_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def grouped_gitmojis() -> Dict[str, Gitmoji]:
+def _grouped_gitmojis() -> Dict[str, Gitmoji]:
     """Return the gitmojis grouped by type."""
     return {moji.type: moji for moji in get_gitmojis()}
 
@@ -73,13 +73,13 @@ def gitmojify(message: str, allowed_prefixes: List[str], *, convert: bool) -> st
     gtype = match.group(1)
     if " " in gtype:  # maybe do a better check?
         return message
-    icon = grouped_gitmojis()[gtype].icon
+    icon = _grouped_gitmojis()[gtype].icon
     return f"{icon} {message}"
 
 
 def run() -> None:
     """The pre-commit hook that modifies the commit message."""
-    args = get_args()
+    args = _get_args()
     cz_cfg = config.read_cfg(args.config)
     allowed_prefixes = args.allowed_prefixes or cz_cfg.settings["allowed_prefixes"]
     if args.commit_msg_file:
