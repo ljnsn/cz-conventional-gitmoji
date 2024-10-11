@@ -1,3 +1,22 @@
+## v0.5.0 (2024-10-11)
+
+### ✨ Features
+
+- support `allowed_prefixes` and add `convert_prefixes` (#224)
+
+### 📝💡 Documentation
+
+- **readme**: add type mapping
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- update lock
+- **pre-commit**: drop pygrep hooks
+
+### 🧹 chore
+
+- copier update
+
 ## v0.4.5 (2024-10-08)
 
 ### 🐛🚑️ Fixes
