@@ -44,6 +44,7 @@ bump_message = "🔖 bump(release): v$current_version → v$new_version"
 update_changelog_on_bump = true
 major_version_zero = true
 allowed_prefixes = ["Squash", "Merge", "Revert"]
+annotated_tag = true
 
 [tool.ruff]
 fix = true
