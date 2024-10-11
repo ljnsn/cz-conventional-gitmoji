@@ -73,6 +73,8 @@ __all__ = (
     "GJ_THREADING",
     "GJ_VALIDATION",
     "GJ_CHORE",
+    "GJ_SQUASH",
+    "GJ_FIXUP",
 )
 
 GJ_FIX = "🐛"
@@ -149,3 +151,5 @@ GJ_MONEY = "💸"
 GJ_THREADING = "🧵"
 GJ_VALIDATION = "🦺"
 GJ_CHORE = "🧹"
+GJ_SQUASH = "👇"
+GJ_FIXUP = "🫥"
