@@ -69,10 +69,11 @@ def gitmojify(
     if any(map(message.startswith, allowed_prefixes or [])):
         return message
 
-    pat = re.compile(get_pattern())
-    match = pat.match(message)
+    pat = get_pattern()
+    match = re.match(pat, message)
     if match is None:
-        raise ValueError("invalid commit message")
+        msg = "invalid commit message"
+        raise ValueError(msg)
     gtype = match.group(1)
     if " " in gtype:  # maybe do a better check?
         return message
@@ -87,6 +88,20 @@ def _write(filepath: Optional[Path], message: str) -> None:
         return
     with filepath.open("w", encoding=UTF8) as f:
         f.write(message)
+
+
+def _filter_comments(message: str) -> str:
+    """Filter out comments from the message.
+
+    Copied from commitizen.commands.check.py::Check._filter_comments.
+    """
+    lines = []
+    for line in message.split("\n"):
+        if "# ------------------------ >8 ------------------------" in line:
+            break
+        if not line.startswith("#"):
+            lines.append(line)
+    return "\n".join(lines)
 
 
 def run() -> None:
@@ -105,7 +120,7 @@ def run() -> None:
     _write(
         filepath,
         gitmojify(
-            msg,
+            _filter_comments(msg),
             args.allowed_prefixes or settings.allowed_prefixes,
             args.convert_prefixes or settings.convert_prefixes,
         ),
