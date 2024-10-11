@@ -10,7 +10,7 @@ include = ["src", "pyproject.toml", "README.md"]
 
 [project]
 name = "cz-conventional-gitmoji"
-version = "0.5.0"
+version = "0.5.1"
 description = "A commitizen plugin that combines gitmoji and conventional."
 authors = [{ name = "ljnsn", email = "info@ljnsn.com" }]
 readme = "README.md"

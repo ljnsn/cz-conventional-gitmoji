@@ -1,3 +1,17 @@
+## v0.5.1 (2024-10-11)
+
+### 🐛🚑️ Fixes
+
+- **shared**: keep only config fields needed
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **commitizen**: use annotated tags
+
+### 🧹 chore
+
+- lock update
+
 ## v0.5.0 (2024-10-11)
 
 ### ✨ Features
