@@ -448,7 +448,7 @@ mojis = [
     {
         "type": "squash",
         "icon": GJ_SQUASH,
-        "code": ":fly:",
+        "code": ":point_down:",
         "desc": "Squash commits.",
     },
     {
