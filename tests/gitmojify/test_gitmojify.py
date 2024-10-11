@@ -1,7 +1,7 @@
 from pathlib import Path
 from unittest import mock
 
-from commitizen import config
+import attrs
 import pytest
 
 from gitmojify import mojify
@@ -102,16 +102,16 @@ def test_gitmojify_convert(message: str, convert_prefixes: list, expected: str) 
 
 def test_get_settings() -> None:
     """Test get_settings function."""
+    orig_settings = mojify.get_settings()
     mock_args = mock.MagicMock(config="path/to/config")
-    cfg_settings = config.read_cfg().settings.copy()
     with mock.patch("commitizen.config.read_cfg") as mock_read_cfg:
-        cfg_settings.update(
-            {  # type: ignore[typeddict-item]
-                "allowed_prefixes": ["custom3", "custom4"],
-                "convert_prefixes": ["Merge", "Revert"],
-            }
+        mock_read_cfg.return_value.settings = attrs.asdict(
+            attrs.evolve(
+                orig_settings,
+                allowed_prefixes=["custom3", "custom4"],
+                convert_prefixes=["Merge", "Revert"],
+            )
         )
-        mock_read_cfg.return_value.settings = cfg_settings
         settings = mojify.get_settings(mock_args.config)
         assert settings.allowed_prefixes == ["custom3", "custom4"]
         assert settings.convert_prefixes == ["Merge", "Revert"]
