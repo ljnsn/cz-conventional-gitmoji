@@ -93,7 +93,7 @@ def _write(filepath: Optional[Path], message: str) -> None:
 def _filter_comments(message: str) -> str:
     """Filter out comments from the message.
 
-    Copied from commitizen.commands.check.py::Check._filter_comments.
+    Copied from https://github.com/commitizen-tools/commitizen/blob/a54bf542012257a338edb54ca16d11ba6beef0ba/commitizen/commands/check.py#L113-L141
     """
     lines = []
     for line in message.split("\n"):
