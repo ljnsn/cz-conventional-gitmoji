@@ -4,13 +4,12 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from commitizen import config
-from commitizen.exceptions import ConfigFileNotFound
-
 from shared.model import Gitmoji
 from shared.utils import get_gitmojis, get_pattern
+from shared.settings import get_settings
 
 UTF8 = "utf-8"
+DEFAULT_CONVERT_PREFIXES = ["Merge", "Revert"]
 
 
 def _get_args() -> argparse.Namespace:
@@ -30,10 +29,10 @@ def _get_args() -> argparse.Namespace:
         help="allowed gitmoji prefixes",
     )
     parser.add_argument(
-        "--convert",
-        action="store_true",
-        default=False,
-        help="convert allowed prefixes to gitmoji format",
+        "--convert-prefixes",
+        nargs="*",
+        help="prefixes to convert to gitmoji format",
+        default=DEFAULT_CONVERT_PREFIXES,
     )
     return parser.parse_args()
 
@@ -46,8 +45,7 @@ def _grouped_gitmojis() -> Dict[str, Gitmoji]:
 def gitmojify(
     message: str,
     allowed_prefixes: Optional[List[str]] = None,
-    *,
-    convert: bool = False,
+    convert_prefixes: Optional[List[str]] = None,
 ) -> str:
     """
     Gitmojify the commit message.
@@ -60,19 +58,18 @@ def gitmojify(
         message: The complete commit message.
         allowed_prefixes: Prefixes that should not raise an error, even though
             they're not following conventional standard.
-        convert: Whether to convert the allowed prefixes to gitmoji format.
+        convert_prefixes: Prefixes that should be converted to gitmoji format.
 
     Returns:
         The gitmojified message.
     """
+    if any(map(message.startswith, convert_prefixes or [])):
+        first_word, *rest = message.split()
+        if first_word.endswith(":"):
+            first_word = first_word[:-1]
+        message = f"{first_word.lower()}: {' '.join(rest)}"
     if any(map(message.startswith, allowed_prefixes or [])):
-        if convert:
-            first_word, *rest = message.split()
-            if first_word.endswith(":"):
-                first_word = first_word[:-1]
-            message = f"{first_word.lower()}: {' '.join(rest)}"
-        else:
-            return message
+        return message
 
     pat = re.compile(get_pattern())
     match = pat.match(message)
@@ -85,29 +82,33 @@ def gitmojify(
     return f"{icon} {message}"
 
 
-def _get_allowed_prefixes(args: argparse.Namespace) -> List[str]:
-    """Return the allowed prefixes."""
-    if args.allowed_prefixes:
-        return args.allowed_prefixes
-    try:
-        cfg = config.read_cfg(args.config)
-    except ConfigFileNotFound:
-        return []
-    return cfg.settings["allowed_prefixes"]
+def _write(filepath: Optional[Path], message: str) -> None:
+    """Write the message to the file."""
+    if filepath is None:
+        sys.stdout.write(message)
+        return
+    with filepath.open("w", encoding=UTF8) as f:
+        f.write(message)
 
 
 def run() -> None:
     """The pre-commit hook that modifies the commit message."""
     args = _get_args()
-    allowed_prefixes = _get_allowed_prefixes(args)
+    settings = get_settings(args.config)
     if args.commit_msg_file:
         filepath = Path(args.commit_msg_file)
         # TODO: commit message file encoding can be set via git config
         # key 'i18n.commitEncoding' and defaults to UTF-8, get encoding
         # from there.
         msg = filepath.read_text(encoding=UTF8)
-        with filepath.open("w", encoding=UTF8) as f:
-            f.write(gitmojify(msg, allowed_prefixes, convert=args.convert))
     else:
+        filepath = None
         msg = args.message
-        sys.stdout.write(gitmojify(msg, allowed_prefixes, convert=args.convert))
+    _write(
+        filepath,
+        gitmojify(
+            msg,
+            args.allowed_prefixes or settings.allowed_prefixes,
+            args.convert_prefixes or settings.convert_prefixes,
+        ),
+    )
