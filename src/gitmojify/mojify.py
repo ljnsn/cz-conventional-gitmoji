@@ -9,7 +9,6 @@ from shared.utils import get_gitmojis, get_pattern
 from shared.settings import get_settings
 
 UTF8 = "utf-8"
-DEFAULT_CONVERT_PREFIXES = ["Merge", "Revert", "Squash"]
 
 
 def _get_args() -> argparse.Namespace:
@@ -32,7 +31,6 @@ def _get_args() -> argparse.Namespace:
         "--convert-prefixes",
         nargs="*",
         help="prefixes to convert to gitmoji format",
-        default=DEFAULT_CONVERT_PREFIXES,
     )
     return parser.parse_args()
 

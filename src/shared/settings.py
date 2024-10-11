@@ -7,6 +7,8 @@ import attrs
 from commitizen.defaults import CzSettings
 from commitizen import config
 
+DEFAULT_CONVERT_PREFIXES = ["Merge", "Revert", "Squash"]
+
 
 @attrs.define(kw_only=True)
 class MojiSettings:
@@ -23,7 +25,7 @@ class MojiSettings:
     retry_after_failure: bool
     allow_abort: bool
     allowed_prefixes: List[str]
-    convert_prefixes: List[str] = attrs.field(factory=list)
+    convert_prefixes: List[str] = attrs.field(factory=lambda: DEFAULT_CONVERT_PREFIXES)
     changelog_file: str
     changelog_format: Optional[str]
     changelog_incremental: bool
