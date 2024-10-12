@@ -58,3 +58,42 @@ def test_message(
     answers, expected = messages
     message = cz_gitmoji.message(answers)
     assert message == expected
+
+
+def test_example(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify the example commit message."""
+    example = cz_gitmoji.example()
+    assert "🐛 fix: correct minor typos in code" in example
+    assert "closes issue #12" in example
+
+
+def test_schema(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify the commit message schema."""
+    schema = cz_gitmoji.schema()
+    assert "<gitmoji><type>(<scope>): <subject>" in schema
+    assert "(BREAKING CHANGE: )<footer>" in schema
+
+
+def test_schema_pattern(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify the schema validation pattern."""
+    pattern = cz_gitmoji.schema_pattern()
+    assert isinstance(pattern, str)
+    assert len(pattern) > 0
+
+
+def test_info(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify the info content."""
+    info = cz_gitmoji.info()
+    assert isinstance(info, str)
+    assert len(info) > 0
+
+
+def test_process_commit(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify commit processing."""
+    valid_commit = "🐛 fix(core): resolve null pointer exception"
+    processed = cz_gitmoji.process_commit(valid_commit)
+    assert processed == "resolve null pointer exception"
+
+    invalid_commit = "This is not a valid commit message"
+    processed = cz_gitmoji.process_commit(invalid_commit)
+    assert processed == ""
