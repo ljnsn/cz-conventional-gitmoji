@@ -176,6 +176,7 @@ def test_run_with_options(tmp_path: Path):
         return_value=mock.MagicMock(
             allowed_prefixes=["custom"],
             convert_prefixes=["Merge"],
+            encoding="utf-8",
         ),
     ):
         mojify.run()
@@ -196,7 +197,36 @@ def test_run_with_options(tmp_path: Path):
         return_value=mock.MagicMock(
             allowed_prefixes=None,
             convert_prefixes=["Merge"],
+            encoding="utf-8",
         ),
     ):
         mojify.run()
         assert filepath.read_text(encoding="utf-8") == f"{GJ_MERGE} merge: some branch"
+
+
+def test_gitmojify_with_convert_prefixes():
+    """Test gitmojify with convert_prefixes."""
+    message = "feat: add new feature"
+    result = mojify.gitmojify(message, convert_prefixes=["feat"])
+    assert result.startswith("✨")
+
+
+def test_gitmojify_with_allowed_prefixes():
+    """Test gitmojify with allowed_prefixes."""
+    message = "custom: special commit"
+    result = mojify.gitmojify(message, allowed_prefixes=["custom"])
+    assert result == message
+
+
+def test_gitmojify_invalid_message():
+    """Test gitmojify with an invalid message."""
+    message = "invalid commit message"
+    with pytest.raises(ValueError, match="invalid commit message"):
+        mojify.gitmojify(message)
+
+
+def test_gitmojify_with_existing_gitmoji():
+    """Test gitmojify with a message that already has a gitmoji."""
+    message = "🐛 fix: resolve bug"
+    result = mojify.gitmojify(message)
+    assert result == message
