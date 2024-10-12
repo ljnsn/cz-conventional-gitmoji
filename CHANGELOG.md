@@ -1,3 +1,17 @@
+## v0.5.4 (2024-10-12)
+
+### ♻️  Refactorings
+
+- use named patterns
+
+### ✅🤡🧪 Tests
+
+- **cz-gitmoji**: add more tests
+
+### 💚👷 CI & Build
+
+- add codecov token
+
 ## v0.5.3 (2024-10-12)
 
 ### 🐛🚑️ Fixes
