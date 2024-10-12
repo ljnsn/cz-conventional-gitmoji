@@ -315,6 +315,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
     def info(self) -> str:
         """Return information about the commit message style."""
         dir_path = Path(__file__).parent
+        # TODO: improve the info file
         filepath = dir_path.joinpath("conventional_gitmojis_info.txt")
         with open(filepath, "r") as f:
             content = f.read()
@@ -326,4 +327,4 @@ class CommitizenGitmojiCz(BaseCommitizen):
         m = re.match(pat, commit)
         if m is None:
             return ""
-        return m.group(3).strip()
+        return m.group("subject").strip()

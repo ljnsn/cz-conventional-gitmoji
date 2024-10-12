@@ -5,16 +5,11 @@ from shared.spec import mojis
 
 # global pattern to validate commit messages
 PATTERN = (
-    # To explictly make . match new line
     r"(?s)"
-    # gitmoji and type
-    r"({type_group})"
-    # scope
-    r"(\(\S+\))?!?:"
-    # subject
-    r"( [^\n\r]+)"
-    # body
-    r"((\n\n.*)|(\s*))?$"
+    r"(?P<type_group>{type_group})"
+    r"(?P<scope>(\(\S+\))?!?:)"
+    r"(?P<subject>( [^\n\r]+))"
+    r"(?P<body>((\n\n.*)|(\s*))?$)"
 )
 
 
