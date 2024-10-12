@@ -1,3 +1,17 @@
+## v0.5.3 (2024-10-12)
+
+### 🐛🚑️ Fixes
+
+- **mojify**: get encoding from settings
+
+### ✅🤡🧪 Tests
+
+- **gitmojify**: add encoding and more tests
+
+### 🧹 chore
+
+- use permalink
+
 ## v0.5.2 (2024-10-12)
 
 ### 🐛🚑️ Fixes
