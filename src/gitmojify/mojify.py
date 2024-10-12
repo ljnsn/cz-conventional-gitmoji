@@ -72,7 +72,7 @@ def gitmojify(
     if match is None:
         msg = "invalid commit message"
         raise ValueError(msg)
-    gtype = match.group(1)
+    gtype = match.group("type_group")
     if " " in gtype:  # maybe do a better check?
         return message
     icon = _grouped_gitmojis()[gtype].icon
