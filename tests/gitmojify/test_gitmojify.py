@@ -242,9 +242,8 @@ def test_gitmojify_with_convert_prefixes_merge(
         result = mojify.gitmojify(message_in, convert_prefixes=["Merge"])
         assert result == message_out
     else:
-        with pytest.raises(ValueError) as exc_info:
+        with pytest.raises(ValueError, match="invalid commit message"):
             mojify.gitmojify(message_in, convert_prefixes=["Merge"])
-        assert str(exc_info.value) == "invalid commit message"
 
 
 def test_gitmojify_with_allowed_prefixes():
