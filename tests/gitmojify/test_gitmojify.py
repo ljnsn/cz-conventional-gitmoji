@@ -230,20 +230,19 @@ DESCRIPTION = "This is a description."
         ("Merge", ..., True),
         ("Merge: ", ..., True),
         ("merge: ", ..., True),
-        # TODO: expected is f"{GJ_MERGE} merge: \n\n{DESCRIPTION}" and should_raise is True
-        (f"Merge \n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", False),
+        (f"Merge \n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", True),
     ],
 )
 def test_gitmojify_with_convert_prefixes_merge(
     message_in: str, message_out: str, should_raise: bool
 ):
     """Test gitmojify with convert_prefixes and the Merge prefix."""
-    if not should_raise:
-        result = mojify.gitmojify(message_in, convert_prefixes=["Merge"])
-        assert result == message_out
-    else:
+    if should_raise:
         with pytest.raises(ValueError, match="invalid commit message"):
             mojify.gitmojify(message_in, convert_prefixes=["Merge"])
+    else:
+        result = mojify.gitmojify(message_in, convert_prefixes=["Merge"])
+        assert result == message_out
 
 
 def test_gitmojify_with_allowed_prefixes():

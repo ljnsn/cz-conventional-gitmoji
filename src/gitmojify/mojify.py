@@ -59,11 +59,13 @@ def gitmojify(
     Returns:
         The gitmojified message.
     """
-    if any(map(message.startswith, convert_prefixes or [])):
-        first_word, *rest = message.split(maxsplit=1)
+    convert_prefixes = convert_prefixes or []
+    if any(map(message.startswith, convert_prefixes)):
+        first_word, *rest = message.split(" ", maxsplit=1)
         if first_word.endswith(":"):
             first_word = first_word[:-1]
-        message = f"{first_word.lower()}: {''.join(rest)}"
+        if first_word in convert_prefixes:
+            message = f"{first_word.lower()}: {''.join(rest)}"
     if any(map(message.startswith, allowed_prefixes or [])):
         return message
 
