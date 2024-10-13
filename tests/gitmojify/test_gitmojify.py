@@ -211,6 +211,42 @@ def test_gitmojify_with_convert_prefixes():
     assert result.startswith("✨")
 
 
+SUMMARY = "branch 'main' into branch 'dev'"
+DESCRIPTION = "This is a description."
+
+
+@pytest.mark.parametrize(
+    ["message_in", "message_out", "should_raise"],
+    [
+        (f"Merge {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
+        (f"Merge: {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
+        (f"merge {SUMMARY}", ..., True),
+        (f"merge: {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
+        (
+            f"Merge {SUMMARY}\n\n{DESCRIPTION}",
+            f"{GJ_MERGE} merge: {SUMMARY}\n\n{DESCRIPTION}",
+            False,
+        ),
+        ("Merge", ..., True),
+        ("Merge: ", ..., True),
+        ("merge: ", ..., True),
+        # TODO: expected is f"{GJ_MERGE} merge: \n\n{DESCRIPTION}" and should_raise is True
+        (f"Merge \n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", False),
+    ],
+)
+def test_gitmojify_with_convert_prefixes_merge(
+    message_in: str, message_out: str, should_raise: bool
+):
+    """Test gitmojify with convert_prefixes and the Merge prefix."""
+    if not should_raise:
+        result = mojify.gitmojify(message_in, convert_prefixes=["Merge"])
+        assert result == message_out
+    else:
+        with pytest.raises(ValueError) as exc_info:
+            mojify.gitmojify(message_in, convert_prefixes=["Merge"])
+        assert str(exc_info.value) == "invalid commit message"
+
+
 def test_gitmojify_with_allowed_prefixes():
     """Test gitmojify with allowed_prefixes."""
     message = "custom: special commit"
