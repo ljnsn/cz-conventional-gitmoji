@@ -98,15 +98,27 @@ jobs:
       - name: Install Dependencies
         run: uv sync --frozen --only-dev
 
+      - name: Configure git
+        env:
+          USERNAME: github-actions[bot]
+        run: |
+          git config --local user.name "$USERNAME"
+          git config --local user.email "$USERNAME@users.noreply.github.com"
+          git config --local pull.rebase true
+
       - name: Bump, changelog and sync
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          GITHUB_SERVER_URL: ${{ github.server_url }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          cz bump --yes --no-verify
+          GITHUB_DOMAIN=${GITHUB_SERVER_URL#*//}
+          CURRENT_BRANCH="$(git branch --show-current)"
+          REMOTE_REPO="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@${GITHUB_DOMAIN}/${REPOSITORY}.git"
+          cz --no-raise 21 bump --yes --no-verify --check-consistency
           uv lock --upgrade-package cz-conventional-gitmoji
           git add uv.lock
           git commit -m "chore: uv lock"
-          # TODO: add env vars
-          REMOTE_REPO="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@${GITHUB_DOMAIN}/${INPUT_REPOSITORY}.git"
-          git pull "$REMOTE_REPO" "$INPUT_BRANCH"
-          git push "$REMOTE_REPO" "HEAD:${INPUT_BRANCH}" --tags
+          git pull "$REMOTE_REPO" "$CURRENT_BRANCH"
+          git push "$REMOTE_REPO" "HEAD:${CURRENT_BRANCH}" --tags
