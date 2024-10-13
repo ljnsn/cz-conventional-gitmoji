@@ -63,7 +63,7 @@ def gitmojify(
         first_word, *rest = message.split(maxsplit=1)
         if first_word.endswith(":"):
             first_word = first_word[:-1]
-        message = f"{first_word.lower()}: {' '.join(rest)}"
+        message = f"{first_word.lower()}: {''.join(rest)}"
     if any(map(message.startswith, allowed_prefixes or [])):
         return message
 
