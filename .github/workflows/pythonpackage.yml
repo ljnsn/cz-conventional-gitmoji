@@ -3,6 +3,13 @@ name: Python package
 on:
   push:
     branches:
+      - "main"
+  pull_request:
+    branches:
+      - "**"
+    types: [opened, synchronize, reopened]
+  create:
+    branches:
       - "**"
 
 jobs:
