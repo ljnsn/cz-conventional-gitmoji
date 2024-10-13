@@ -1,0 +1,1 @@
+"""Cz Gitmoji test suite."""

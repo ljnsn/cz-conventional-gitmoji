@@ -31,6 +31,8 @@ def parse_subject(text: str) -> str:
 
 
 class CommitizenGitmojiCz(BaseCommitizen):
+    """Cz Gitmoji plugin."""
+
     # pattern to match messages for bumping
     # if none of these match, version will not be bumped (unless manually specified)
     bump_pattern = (
