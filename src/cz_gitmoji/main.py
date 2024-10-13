@@ -319,7 +319,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
         dir_path = Path(__file__).parent
         # TODO: improve the info file
         filepath = dir_path.joinpath("conventional_gitmojis_info.txt")
-        with open(filepath, "r", encoding="utf-8") as f:
+        with filepath.open(encoding="utf-8") as f:
             content = f.read()
         return content
 
