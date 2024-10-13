@@ -87,8 +87,26 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           submodules: recursive
 
-      - name: Create bump and changelog
-        uses: commitizen-tools/commitizen-action@master
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          extra_requirements: "cz-conventional-gitmoji"
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install Dependencies
+        run: uv sync --frozen
+
+      - name: Bump, changelog and sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        run: |
+          cz bump --yes --no-verify
+          uv lock --upgrade-package cz-conventional-gitmoji
+          git add uv.lock
+          git commit -m "chore: uv lock"
+          # TODO: add env vars
+          REMOTE_REPO="https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@${GITHUB_DOMAIN}/${INPUT_REPOSITORY}.git"
+          git pull "$REMOTE_REPO" "$INPUT_BRANCH"
+          git push "$REMOTE_REPO" "HEAD:${INPUT_BRANCH}" --tags
