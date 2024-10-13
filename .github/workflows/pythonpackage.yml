@@ -106,7 +106,7 @@ jobs:
           git config --local user.email "$USERNAME@users.noreply.github.com"
           git config --local pull.rebase true
 
-      - name: Bump, changelog and sync
+      - name: Bump, changelog and lock
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
