@@ -56,7 +56,18 @@ line-ending = "lf"
 indent-style = "space"
 
 [tool.ruff.lint]
-extend-select = ["D", "I", "N", "PGH", "TID"]
+extend-select = [
+  # pydocstyle
+  "D",
+  # isort
+  "I",
+  # pep8-naming
+  "N",
+  # pygrep hooks (formerly done by pre-commit)
+  "PGH",
+  # tidy imports
+  "TID",
+]
 ignore = [
   # Line too long
   "E501",
