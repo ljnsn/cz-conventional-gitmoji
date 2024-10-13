@@ -1,3 +1,23 @@
+## v0.5.6 (2024-10-13)
+
+### 🐛🚑️ Fixes
+
+- `convert_prefixes` incorrectly merges line breaks
+
+### ♻️  Refactorings
+
+- Adjust the test
+- Adjust the join string to an empty string
+
+### ✅🤡🧪 Tests
+
+- add convert_prefixes_merge test case
+
+### 💚👷 CI & Build
+
+- trigger on pull request
+- add 3.13 to test matrix
+
 ## v0.5.5 (2024-10-13)
 
 ### 🐛🚑️ Fixes
