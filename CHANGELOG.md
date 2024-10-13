@@ -1,3 +1,11 @@
+## v0.5.8 (2024-10-13)
+
+### 🐛🚑️ Fixes
+
+- use extra requirements
+- install uv in bump job
+- add commitizen pre-bump hook
+
 ## v0.5.7 (2024-10-13)
 
 ### 🐛🚑️ Fixes
