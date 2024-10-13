@@ -3,7 +3,6 @@
 from typing import List, Optional
 
 import attrs
-
 from commitizen import config
 
 DEFAULT_CONVERT_PREFIXES = ["Merge", "Revert", "Squash"]
