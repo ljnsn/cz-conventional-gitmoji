@@ -278,7 +278,7 @@ toml = [
 
 [[package]]
 name = "cz-conventional-gitmoji"
-version = "0.5.4"
+version = "0.5.7"
 source = { editable = "." }
 dependencies = [
     { name = "attrs" },

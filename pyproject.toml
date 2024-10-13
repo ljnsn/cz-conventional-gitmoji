@@ -45,6 +45,7 @@ update_changelog_on_bump = true
 major_version_zero = true
 allowed_prefixes = ["Squash", "Merge", "Revert"]
 annotated_tag = true
+pre_bump_hooks = ["uv lock --upgrade-package cz-conventional-gitmoji"]
 
 [tool.ruff]
 fix = true
