@@ -230,7 +230,7 @@ DESCRIPTION = "This is a description."
         ("Merge", ..., True),
         ("Merge: ", ..., True),
         ("merge: ", ..., True),
-        (f"Merge \n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", True),
+        (f"Merge\n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", True),
     ],
 )
 def test_gitmojify_with_convert_prefixes_merge(
