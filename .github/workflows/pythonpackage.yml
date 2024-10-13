@@ -87,6 +87,9 @@ jobs:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           submodules: recursive
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
       - name: Create bump and changelog
         uses: commitizen-tools/commitizen-action@master
         with:
