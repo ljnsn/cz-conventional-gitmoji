@@ -56,7 +56,7 @@ line-ending = "lf"
 indent-style = "space"
 
 [tool.ruff.lint]
-extend-select = ["D", "I"]
+extend-select = ["D", "I", "N"]
 ignore = [
   # Line too long
   "E501",
