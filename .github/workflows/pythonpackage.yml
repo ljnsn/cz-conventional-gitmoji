@@ -96,7 +96,7 @@ jobs:
         uses: astral-sh/setup-uv@v3
 
       - name: Install Dependencies
-        run: uv sync --frozen
+        run: uv sync --frozen --only-dev
 
       - name: Bump, changelog and sync
         env:
