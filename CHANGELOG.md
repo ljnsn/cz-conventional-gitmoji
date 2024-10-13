@@ -1,3 +1,22 @@
+## v0.5.5 (2024-10-13)
+
+### 🐛🚑️ Fixes
+
+- **cz-gitmoji**: use path directly instead of open
+- **cz-gitmoji**: pass encoding when reading info
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **ruff**: add comments to selected rules
+- **ruff**: enable pygrep hooks
+- **ruff**: enable tidy-imports
+- **ruff**: enable pep8 naming
+
+### 🚨 Linting
+
+- enable and fix ruff docstring rules
+- enable and fix ruff isort
+
 ## v0.5.4 (2024-10-12)
 
 ### ♻️  Refactorings
