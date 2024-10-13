@@ -1,3 +1,13 @@
+## v0.5.7 (2024-10-13)
+
+### 🐛🚑️ Fixes
+
+- **mojify**: don't split on newline and check if prefix is in conversion prefixes
+
+### ✅🤡🧪 Tests
+
+- **mojify**: no space in prefix
+
 ## v0.5.6 (2024-10-13)
 
 ### 🐛🚑️ Fixes
