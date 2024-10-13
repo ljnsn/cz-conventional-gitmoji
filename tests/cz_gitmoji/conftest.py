@@ -10,6 +10,7 @@ from shared.gitmojis import *
 
 @pytest.fixture()
 def config():
+    """Return a base config."""
     _config = BaseConfig()
     _config.settings.update({"name": defaults.name})
     return _config
@@ -17,6 +18,7 @@ def config():
 
 @pytest.fixture()
 def cz_gitmoji(config: BaseConfig) -> CommitizenGitmojiCz:
+    """Return a CommitizenGitmojiCz instance."""
     return CommitizenGitmojiCz(config)
 
 
@@ -74,4 +76,5 @@ def cz_gitmoji(config: BaseConfig) -> CommitizenGitmojiCz:
     ]
 )
 def messages(request: Any):
+    """Return a message."""
     return request.param

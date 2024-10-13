@@ -50,13 +50,13 @@ annotated_tag = true
 fix = true
 target-version = "py38"
 src = ["src", "tests"]
-extend-select = ["I"]
 
 [tool.ruff.format]
 line-ending = "lf"
 indent-style = "space"
 
 [tool.ruff.lint]
+extend-select = ["D", "I"]
 ignore = [
   # Line too long
   "E501",
@@ -64,6 +64,12 @@ ignore = [
   "F403",
   # may be undefined or defined from star imports
   "F405",
+  # Missing docstring in public module
+  "D100",
+  # Missing docstring in `__init__`
+  "D107",
+  # Multi-line docstring summary should start at the first line
+  "D212",
 ]
 unfixable = ["F401", "F841"]
 
