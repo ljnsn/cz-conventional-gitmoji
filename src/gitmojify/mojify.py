@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from shared.model import Gitmoji
-from shared.utils import get_gitmojis, get_pattern
 from shared.settings import get_settings
+from shared.utils import get_gitmojis, get_pattern
 
 
 def _get_args() -> argparse.Namespace:

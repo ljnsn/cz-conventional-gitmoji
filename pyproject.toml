@@ -50,6 +50,7 @@ annotated_tag = true
 fix = true
 target-version = "py38"
 src = ["src", "tests"]
+extend-select = ["I"]
 
 [tool.ruff.format]
 line-ending = "lf"
