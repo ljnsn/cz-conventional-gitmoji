@@ -12,7 +12,7 @@ from commitizen.cz.utils import multiple_line_breaker, required_validator
 from commitizen.defaults import MAJOR, MINOR, PATCH
 
 from shared import utils
-from shared.gitmojis import *
+from shared.gitmojis import GitmojiEnum as GJ  # noqa: N814
 
 
 def parse_scope(text: str) -> str:
@@ -37,12 +37,12 @@ class CommitizenGitmojiCz(BaseCommitizen):
     # if none of these match, version will not be bumped (unless manually specified)
     bump_pattern = (
         rf"^((BREAKING[\-\ ]CHANGE"
-        rf"|{GJ_BOOM}? ?boom"
-        rf"|{GJ_FEAT}? ?feat"
-        rf"|{GJ_FIX}? ?fix"
-        rf"|{GJ_HOTFIX}? ?hotfix"
-        rf"|{GJ_REFACTOR}? +refactor"
-        rf"|{GJ_PERF}? ?perf)"
+        rf"|{GJ.BOOM}? ?boom"
+        rf"|{GJ.FEAT}? ?feat"
+        rf"|{GJ.FIX}? ?fix"
+        rf"|{GJ.HOTFIX}? ?hotfix"
+        rf"|{GJ.REFACTOR}? +refactor"
+        rf"|{GJ.PERF}? ?perf)"
         r"(\(.+\))?"  # scope
         r"!?):"  # breaking
     )
@@ -51,24 +51,24 @@ class CommitizenGitmojiCz(BaseCommitizen):
         (
             (r"^.+!$", MAJOR),
             (r"^BREAKING[\-\ ]CHANGE", MAJOR),
-            (rf"^{GJ_BOOM}? ?boom", MAJOR),
-            (rf"^{GJ_FEAT}? ?feat", MINOR),
-            (rf"^{GJ_FIX}? ?fix", PATCH),
-            (rf"^{GJ_HOTFIX}? ?hotfix", PATCH),
-            (rf"^{GJ_REFACTOR}? ?refactor", PATCH),
-            (rf"^{GJ_PERF}? ?perf", PATCH),
+            (rf"^{GJ.BOOM}? ?boom", MAJOR),
+            (rf"^{GJ.FEAT}? ?feat", MINOR),
+            (rf"^{GJ.FIX}? ?fix", PATCH),
+            (rf"^{GJ.HOTFIX}? ?hotfix", PATCH),
+            (rf"^{GJ.REFACTOR}? ?refactor", PATCH),
+            (rf"^{GJ.PERF}? ?perf", PATCH),
         )
     )
     bump_map_major_version_zero = OrderedDict(
         (
             (r"^.+!$", MINOR),
             (r"^BREAKING[\-\ ]CHANGE", MINOR),
-            (rf"^{GJ_BOOM}? ?boom", MINOR),
-            (rf"^{GJ_FEAT}? ?feat", MINOR),
-            (rf"^{GJ_FIX}? ?fix", PATCH),
-            (rf"^{GJ_HOTFIX}? ?hotfix", PATCH),
-            (rf"^{GJ_REFACTOR}? ?refactor", PATCH),
-            (rf"^{GJ_PERF}? ?perf", PATCH),
+            (rf"^{GJ.BOOM}? ?boom", MINOR),
+            (rf"^{GJ.FEAT}? ?feat", MINOR),
+            (rf"^{GJ.FIX}? ?fix", PATCH),
+            (rf"^{GJ.HOTFIX}? ?hotfix", PATCH),
+            (rf"^{GJ.REFACTOR}? ?refactor", PATCH),
+            (rf"^{GJ.PERF}? ?perf", PATCH),
         )
     )
     # parse information for generating the change log
@@ -78,122 +78,122 @@ class CommitizenGitmojiCz(BaseCommitizen):
     )
     # exclude from changelog
     changelog_pattern = (
-        rf"^(?!{GJ_INIT}? ?init)(?!{GJ_MERGE}? ?merge)(?!{GJ_BUMP}? ?bump).*"
+        rf"^(?!{GJ.INIT}? ?init)(?!{GJ.MERGE}? ?merge)(?!{GJ.BUMP}? ?bump).*"
     )
     # map types to changelog sections
     change_type_map = {
         # boom
-        f"{GJ_BOOM} boom": f"{GJ_BOOM} Boom",
+        f"{GJ.BOOM} boom": f"{GJ.BOOM} Boom",
         # features
-        f"{GJ_FEAT} feat": f"{GJ_FEAT} Features",
+        f"{GJ.FEAT} feat": f"{GJ.FEAT} Features",
         # fixes
-        f"{GJ_FIX} fix": f"{GJ_FIX}{GJ_HOTFIX} Fixes",
-        f"{GJ_HOTFIX} hotfix": f"{GJ_FIX}{GJ_HOTFIX} Fixes",
+        f"{GJ.FIX} fix": f"{GJ.FIX}{GJ.HOTFIX} Fixes",
+        f"{GJ.HOTFIX} hotfix": f"{GJ.FIX}{GJ.HOTFIX} Fixes",
         # security
-        f"{GJ_SECURITY} security": f"{GJ_SECURITY} Security",
+        f"{GJ.SECURITY} security": f"{GJ.SECURITY} Security",
         # license
-        f"{GJ_LICENSE} license": f"{GJ_LICENSE} License",
+        f"{GJ.LICENSE} license": f"{GJ.LICENSE} License",
         # refactorings
-        f"{GJ_REFACTOR} refactor": f"{GJ_REFACTOR} Refactorings",
+        f"{GJ.REFACTOR} refactor": f"{GJ.REFACTOR} Refactorings",
         # style & architecture
-        f"{GJ_STYLE} style": f"{GJ_STYLE}{GJ_ARCH} Style & Architecture",
-        f"{GJ_ARCH} arch": f"{GJ_STYLE}{GJ_ARCH} Style & Architecture",
+        f"{GJ.STYLE} style": f"{GJ.STYLE}{GJ.ARCH} Style & Architecture",
+        f"{GJ.ARCH} arch": f"{GJ.STYLE}{GJ.ARCH} Style & Architecture",
         # performance
-        f"{GJ_PERF} perf": f"{GJ_PERF} Performance",
+        f"{GJ.PERF} perf": f"{GJ.PERF} Performance",
         # docs
-        f"{GJ_DOCS} docs": f"{GJ_DOCS}{GJ_SOURCE_DOCS} Documentation",
-        f"{GJ_SOURCE_DOCS} source-docs": f"{GJ_DOCS}{GJ_SOURCE_DOCS} Documentation",
+        f"{GJ.DOCS} docs": f"{GJ.DOCS}{GJ.SOURCE_DOCS} Documentation",
+        f"{GJ.SOURCE_DOCS} source-docs": f"{GJ.DOCS}{GJ.SOURCE_DOCS} Documentation",
         # tests
-        f"{GJ_TEST} test": f"{GJ_TEST}{GJ_MOCK}{GJ_TEST_FAIL} Tests",
-        f"{GJ_MOCK} mock": f"{GJ_TEST}{GJ_MOCK}{GJ_TEST_FAIL} Tests",
-        f"{GJ_TEST_FAIL} test-fail": f"{GJ_TEST}{GJ_MOCK}{GJ_TEST_FAIL} Tests",
+        f"{GJ.TEST} test": f"{GJ.TEST}{GJ.MOCK}{GJ.TEST_FAIL} Tests",
+        f"{GJ.MOCK} mock": f"{GJ.TEST}{GJ.MOCK}{GJ.TEST_FAIL} Tests",
+        f"{GJ.TEST_FAIL} test-fail": f"{GJ.TEST}{GJ.MOCK}{GJ.TEST_FAIL} Tests",
         # auth
-        f"{GJ_AUTH} auth": f"{GJ_AUTH} Authentication",
+        f"{GJ.AUTH} auth": f"{GJ.AUTH} Authentication",
         # ci & build
-        f"{GJ_BUILD} build": f"{GJ_CI}{GJ_BUILD} CI & Build",
-        f"{GJ_CI} ci": f"{GJ_CI}{GJ_BUILD} CI & Build",
+        f"{GJ.BUILD} build": f"{GJ.CI}{GJ.BUILD} CI & Build",
+        f"{GJ.CI} ci": f"{GJ.CI}{GJ.BUILD} CI & Build",
         # ui & uix
-        f"{GJ_UI} ui": f"{GJ_UI}{GJ_UX} UI & UIX",
-        f"{GJ_UX} ux": f"{GJ_UI}{GJ_UX} UI & UIX",
+        f"{GJ.UI} ui": f"{GJ.UI}{GJ.UX} UI & UIX",
+        f"{GJ.UX} ux": f"{GJ.UI}{GJ.UX} UI & UIX",
         # configuration & scripts & packages
-        f"{GJ_CONFIG} config": f"{GJ_CONFIG}{GJ_SCRIPT}{GJ_PACKAGE} Configuration, Scripts, Packages",
-        f"{GJ_SCRIPT} script": f"{GJ_CONFIG}{GJ_SCRIPT}{GJ_PACKAGE} Configuration, Scripts, Packages",
-        f"{GJ_PACKAGE} package": f"{GJ_CONFIG}{GJ_SCRIPT}{GJ_PACKAGE} Configuration, Scripts, Packages",
+        f"{GJ.CONFIG} config": f"{GJ.CONFIG}{GJ.SCRIPT}{GJ.PACKAGE} Configuration, Scripts, Packages",
+        f"{GJ.SCRIPT} script": f"{GJ.CONFIG}{GJ.SCRIPT}{GJ.PACKAGE} Configuration, Scripts, Packages",
+        f"{GJ.PACKAGE} package": f"{GJ.CONFIG}{GJ.SCRIPT}{GJ.PACKAGE} Configuration, Scripts, Packages",
         # cleanup
-        f"{GJ_DUMP} dump": f"{GJ_DUMP}{GJ_DEAD} Clean up",
-        f"{GJ_DEAD} dead": f"{GJ_DUMP}{GJ_DEAD} Clean up",
+        f"{GJ.DUMP} dump": f"{GJ.DUMP}{GJ.DEAD} Clean up",
+        f"{GJ.DEAD} dead": f"{GJ.DUMP}{GJ.DEAD} Clean up",
         # dependencies
-        f"{GJ_DEP_ADD} dep-add": f"{GJ_PIN}{GJ_DEP_ADD}{GJ_DEP_DROP}{GJ_DEP_RM}{GJ_DEP_BUMP} Dependencies",
-        f"{GJ_DEP_RM} dep-rm": f"{GJ_PIN}{GJ_DEP_ADD}{GJ_DEP_DROP}{GJ_DEP_RM}{GJ_DEP_BUMP} Dependencies",
-        f"{GJ_DEP_BUMP} dep-bump": f"{GJ_PIN}{GJ_DEP_ADD}{GJ_DEP_DROP}{GJ_DEP_RM}{GJ_DEP_BUMP} Dependencies",
-        f"{GJ_DEP_DROP} dep-drop": f"{GJ_PIN}{GJ_DEP_ADD}{GJ_DEP_DROP}{GJ_DEP_RM}{GJ_DEP_BUMP} Dependencies",
-        f"{GJ_PIN} pin": f"{GJ_PIN}{GJ_DEP_ADD}{GJ_DEP_DROP}{GJ_DEP_RM}{GJ_DEP_BUMP} Dependencies",
+        f"{GJ.DEP_ADD} dep-add": f"{GJ.PIN}{GJ.DEP_ADD}{GJ.DEP_DROP}{GJ.DEP_RM}{GJ.DEP_BUMP} Dependencies",
+        f"{GJ.DEP_RM} dep-rm": f"{GJ.PIN}{GJ.DEP_ADD}{GJ.DEP_DROP}{GJ.DEP_RM}{GJ.DEP_BUMP} Dependencies",
+        f"{GJ.DEP_BUMP} dep-bump": f"{GJ.PIN}{GJ.DEP_ADD}{GJ.DEP_DROP}{GJ.DEP_RM}{GJ.DEP_BUMP} Dependencies",
+        f"{GJ.DEP_DROP} dep-drop": f"{GJ.PIN}{GJ.DEP_ADD}{GJ.DEP_DROP}{GJ.DEP_RM}{GJ.DEP_BUMP} Dependencies",
+        f"{GJ.PIN} pin": f"{GJ.PIN}{GJ.DEP_ADD}{GJ.DEP_DROP}{GJ.DEP_RM}{GJ.DEP_BUMP} Dependencies",
         # types
-        f"{GJ_TYPES} types": f"{GJ_TYPES} Types",
+        f"{GJ.TYPES} types": f"{GJ.TYPES} Types",
         # language & accessibility
-        f"{GJ_LANG} lang": f"{GJ_LANG}{GJ_ACCESSIBILITY} Language & Accessibility",
-        f"{GJ_ACCESSIBILITY} accessibility": f"{GJ_LANG}{GJ_ACCESSIBILITY} Language & Accessibility",
+        f"{GJ.LANG} lang": f"{GJ.LANG}{GJ.ACCESSIBILITY} Language & Accessibility",
+        f"{GJ.ACCESSIBILITY} accessibility": f"{GJ.LANG}{GJ.ACCESSIBILITY} Language & Accessibility",
         # design
-        f"{GJ_DESIGN} design": f"{GJ_DESIGN}{GJ_ANIMATION} Design",
-        f"{GJ_ANIMATION} animation": f"{GJ_DESIGN}{GJ_ANIMATION} Design",
+        f"{GJ.DESIGN} design": f"{GJ.DESIGN}{GJ.ANIMATION} Design",
+        f"{GJ.ANIMATION} animation": f"{GJ.DESIGN}{GJ.ANIMATION} Design",
         # logs
-        f"{GJ_LOGS_ADD} logs-add": f"{GJ_LOGS_ADD}{GJ_LOGS_RM} Logs",
-        f"{GJ_LOGS_RM} logs-rm": f"{GJ_LOGS_ADD}{GJ_LOGS_RM} Logs",
+        f"{GJ.LOGS_ADD} logs-add": f"{GJ.LOGS_ADD}{GJ.LOGS_RM} Logs",
+        f"{GJ.LOGS_RM} logs-rm": f"{GJ.LOGS_ADD}{GJ.LOGS_RM} Logs",
         # people
-        f"{GJ_PEOPLE} people": f"{GJ_PEOPLE} People",
+        f"{GJ.PEOPLE} people": f"{GJ.PEOPLE} People",
         # database
-        f"{GJ_DB} db": f"{GJ_DB} Database",
+        f"{GJ.DB} db": f"{GJ.DB} Database",
         # ignore
-        f"{GJ_IGNORE} ignore": f"{GJ_IGNORE} Ignore",
+        f"{GJ.IGNORE} ignore": f"{GJ.IGNORE} Ignore",
         # snapshots
-        f"{GJ_SNAP} snap": f"{GJ_SNAP} Snapshots",
+        f"{GJ.SNAP} snap": f"{GJ.SNAP} Snapshots",
         # experiments
-        f"{GJ_EXPERIMENT} experiment": f"{GJ_EXPERIMENT} Experiments",
+        f"{GJ.EXPERIMENT} experiment": f"{GJ.EXPERIMENT} Experiments",
         # SEO
-        f"{GJ_SEO} seo": f"{GJ_SEO} SEO",
+        f"{GJ.SEO} seo": f"{GJ.SEO} SEO",
         # infra
-        f"{GJ_INFRA} infra": f"{GJ_INFRA} Infrastructure",
+        f"{GJ.INFRA} infra": f"{GJ.INFRA} Infrastructure",
         # devxp
-        f"{GJ_DEVXP} devxp": f"{GJ_DEVXP} Developer Experience",
+        f"{GJ.DEVXP} devxp": f"{GJ.DEVXP} Developer Experience",
         # money
-        f"{GJ_MONEY} money": f"{GJ_MONEY} Sponsoring",
+        f"{GJ.MONEY} money": f"{GJ.MONEY} Sponsoring",
         # threading
-        f"{GJ_THREADING} threading": f"{GJ_THREADING} Threading",
+        f"{GJ.THREADING} threading": f"{GJ.THREADING} Threading",
         # validation
-        f"{GJ_VALIDATION} validation": f"{GJ_VALIDATION} Validation",
+        f"{GJ.VALIDATION} validation": f"{GJ.VALIDATION} Validation",
         # revert
-        f"{GJ_REVERT} revert": f"{GJ_REVERT} Reversions",
+        f"{GJ.REVERT} revert": f"{GJ.REVERT} Reversions",
         # deploy
-        f"{GJ_DEPLOY} deploy": f"{GJ_DEPLOY} Deployments",
+        f"{GJ.DEPLOY} deploy": f"{GJ.DEPLOY} Deployments",
         # linting
-        f"{GJ_FIX_LINT} fix-lint": f"{GJ_FIX_LINT} Linting",
+        f"{GJ.FIX_LINT} fix-lint": f"{GJ.FIX_LINT} Linting",
         # resource & assets
-        f"{GJ_RESOURCE} resource": f"{GJ_RESOURCE}{GJ_ASSET} Resources & Assets",
-        f"{GJ_ASSET} asset": f"{GJ_RESOURCE}{GJ_ASSET} Resources & Assets",
+        f"{GJ.RESOURCE} resource": f"{GJ.RESOURCE}{GJ.ASSET} Resources & Assets",
+        f"{GJ.ASSET} asset": f"{GJ.RESOURCE}{GJ.ASSET} Resources & Assets",
         # others
-        f"{GJ_SECRET} secret": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_WIP} wip": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_ANALYTICS} analytics": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_TYPO} typo": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_POOP} poop": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_EXTERNAL} external": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_BEER} beer": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_TEXT} text": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_EGG} egg": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_SEED} egg": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_FLAG} egg": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_CATCH} egg": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
-        f"{GJ_HEALTH} health": f"{GJ_SECRET}{GJ_WIP}{GJ_ANALYTICS}{GJ_TYPO}{GJ_POOP}{GJ_EXTERNAL}{GJ_BEER}{GJ_TEXT}{GJ_EGG}{GJ_SEED}{GJ_FLAG}{GJ_CATCH}{GJ_HEALTH} Others",
+        f"{GJ.SECRET} secret": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.WIP} wip": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.ANALYTICS} analytics": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.TYPO} typo": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.POOP} poop": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.EXTERNAL} external": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.BEER} beer": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.TEXT} text": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.EGG} egg": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.SEED} egg": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.FLAG} egg": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.CATCH} egg": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
+        f"{GJ.HEALTH} health": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
         # None: init, bump, merge
     }
     # order sections in changelog. all other sections are ordered alphabetically
     change_type_order = [
-        f"{GJ_BOOM} Boom",
-        f"{GJ_FEAT} Features",
-        f"{GJ_FIX}{GJ_HOTFIX} Fixes",
-        f"{GJ_SECURITY} Security",
-        f"{GJ_REFACTOR} Refactorings",
-        f"{GJ_PERF} Performance",
+        f"{GJ.BOOM} Boom",
+        f"{GJ.FEAT} Features",
+        f"{GJ.FIX}{GJ.HOTFIX} Fixes",
+        f"{GJ.SECURITY} Security",
+        f"{GJ.REFACTOR} Refactorings",
+        f"{GJ.PERF} Performance",
     ]
 
     def questions(self) -> List[Dict[str, Any]]:
@@ -292,7 +292,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
     def example(self) -> str:
         """Return an example commit message."""
         return (
-            f"{GJ_FIX} fix: correct minor typos in code\n"
+            f"{GJ.FIX} fix: correct minor typos in code\n"
             "\n"
             "see the issue for details on the typos fixed\n"
             "\n"
