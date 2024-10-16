@@ -5,7 +5,7 @@ import attrs
 import pytest
 
 from gitmojify import mojify
-from shared.gitmojis import *
+from shared.gitmojis import GitmojiEnum
 from shared.spec import mojis
 
 
@@ -19,15 +19,18 @@ def test_grouped_gitmojis() -> None:
 @pytest.mark.parametrize(
     ["message_in", "message_out"],
     [
-        ("feat: some new feature", f"{GJ_FEAT} feat: some new feature"),
-        ("docs(readme): add a section", f"{GJ_DOCS} docs(readme): add a section"),
+        ("feat: some new feature", f"{GitmojiEnum.FEAT} feat: some new feature"),
+        (
+            "docs(readme): add a section",
+            f"{GitmojiEnum.DOCS} docs(readme): add a section",
+        ),
         (
             "refactor(FooClass)!: rename foo.bar -> foo.baz\n\nBREAKING CHANGE: this breaks stuff",
-            f"{GJ_REFACTOR} refactor(FooClass)!: rename foo.bar -> foo.baz\n\nBREAKING CHANGE: this breaks stuff",
+            f"{GitmojiEnum.REFACTOR} refactor(FooClass)!: rename foo.bar -> foo.baz\n\nBREAKING CHANGE: this breaks stuff",
         ),
         (
             "test(foo-tests): add some tests for foo\n\nAdd new tests for foo.bar and foo.baz.",
-            f"{GJ_TEST} test(foo-tests): add some tests for foo\n\nAdd new tests for foo.bar and foo.baz.",
+            f"{GitmojiEnum.TEST} test(foo-tests): add some tests for foo\n\nAdd new tests for foo.bar and foo.baz.",
         ),
     ],
 )
@@ -55,7 +58,7 @@ def test_run_file(tmp_path: Path, message: str) -> None:
         ),
     ):
         mojify.run()
-    assert filepath.read_text(encoding="utf-8") == f"{GJ_FEAT} {message}"
+    assert filepath.read_text(encoding="utf-8") == f"{GitmojiEnum.FEAT} {message}"
 
 
 def test_run_message(message: str, capsys: pytest.CaptureFixture[str]) -> None:
@@ -66,18 +69,28 @@ def test_run_message(message: str, capsys: pytest.CaptureFixture[str]) -> None:
     ):
         mojify.run()
     captured = capsys.readouterr()
-    assert captured.out == f"{GJ_FEAT} {message}"
+    assert captured.out == f"{GitmojiEnum.FEAT} {message}"
 
 
 @pytest.mark.parametrize(
     ["message", "allowed_prefixes", "convert_prefixes", "expected"],
     [
-        ("feat: some feature", None, None, f"{GJ_FEAT} feat: some feature"),
+        ("feat: some feature", None, None, f"{GitmojiEnum.FEAT} feat: some feature"),
         ("custom: some feature", ["custom"], None, "custom: some feature"),
         ("CUSTOM: some feature", ["CUSTOM"], None, "CUSTOM: some feature"),
-        ("feat: some feature", ["custom"], None, f"{GJ_FEAT} feat: some feature"),
+        (
+            "feat: some feature",
+            ["custom"],
+            None,
+            f"{GitmojiEnum.FEAT} feat: some feature",
+        ),
         ("Merge some branch", ["Merge"], None, "Merge some branch"),
-        ("Merge some branch", None, ["Merge"], f"{GJ_MERGE} merge: some branch"),
+        (
+            "Merge some branch",
+            None,
+            ["Merge"],
+            f"{GitmojiEnum.MERGE} merge: some branch",
+        ),
     ],
 )
 def test_gitmojify_allowed_prefixes(
@@ -90,9 +103,9 @@ def test_gitmojify_allowed_prefixes(
 @pytest.mark.parametrize(
     ["message", "convert_prefixes", "expected"],
     [
-        ("Merge some branch", ["Merge"], f"{GJ_MERGE} merge: some branch"),
-        ("MERGE: some feature", ["MERGE"], f"{GJ_MERGE} merge: some feature"),
-        ("feat: some feature", None, f"{GJ_FEAT} feat: some feature"),
+        ("Merge some branch", ["Merge"], f"{GitmojiEnum.MERGE} merge: some branch"),
+        ("MERGE: some feature", ["MERGE"], f"{GitmojiEnum.MERGE} merge: some feature"),
+        ("feat: some feature", None, f"{GitmojiEnum.FEAT} feat: some feature"),
     ],
 )
 def test_gitmojify_convert(message: str, convert_prefixes: list, expected: str) -> None:
@@ -154,7 +167,10 @@ def test_run_with_convert_prefixes(tmp_path: Path):
     ):
         mojify.run()
 
-    assert filepath.read_text(encoding="utf-8") == f"{GJ_MERGE} merge: some feature"
+    assert (
+        filepath.read_text(encoding="utf-8")
+        == f"{GitmojiEnum.MERGE} merge: some feature"
+    )
 
 
 def test_run_with_options(tmp_path: Path):
@@ -201,7 +217,10 @@ def test_run_with_options(tmp_path: Path):
         ),
     ):
         mojify.run()
-        assert filepath.read_text(encoding="utf-8") == f"{GJ_MERGE} merge: some branch"
+        assert (
+            filepath.read_text(encoding="utf-8")
+            == f"{GitmojiEnum.MERGE} merge: some branch"
+        )
 
 
 def test_gitmojify_with_convert_prefixes():
@@ -218,19 +237,19 @@ DESCRIPTION = "This is a description."
 @pytest.mark.parametrize(
     ["message_in", "message_out", "should_raise"],
     [
-        (f"Merge {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
-        (f"Merge: {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
+        (f"Merge {SUMMARY}", f"{GitmojiEnum.MERGE} merge: {SUMMARY}", False),
+        (f"Merge: {SUMMARY}", f"{GitmojiEnum.MERGE} merge: {SUMMARY}", False),
         (f"merge {SUMMARY}", ..., True),
-        (f"merge: {SUMMARY}", f"{GJ_MERGE} merge: {SUMMARY}", False),
+        (f"merge: {SUMMARY}", f"{GitmojiEnum.MERGE} merge: {SUMMARY}", False),
         (
             f"Merge {SUMMARY}\n\n{DESCRIPTION}",
-            f"{GJ_MERGE} merge: {SUMMARY}\n\n{DESCRIPTION}",
+            f"{GitmojiEnum.MERGE} merge: {SUMMARY}\n\n{DESCRIPTION}",
             False,
         ),
         ("Merge", ..., True),
         ("Merge: ", ..., True),
         ("merge: ", ..., True),
-        (f"Merge\n\n{DESCRIPTION}", f"{GJ_MERGE} merge: {DESCRIPTION}", True),
+        (f"Merge\n\n{DESCRIPTION}", f"{GitmojiEnum.MERGE} merge: {DESCRIPTION}", True),
     ],
 )
 def test_gitmojify_with_convert_prefixes_merge(
