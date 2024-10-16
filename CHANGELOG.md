@@ -1,3 +1,17 @@
+## v0.6.1 (2024-10-16)
+
+### 🐛🚑️ Fixes
+
+- **shared**: use enum value for mypy
+
+### ♻️ Refactorings
+
+- make gitmoji an enum
+
+### 🔧🔨📦️ Configuration, Scripts, Packages
+
+- **ruff**: remove unnecessary rules from ignore
+
 ## v0.6.0 (2024-10-16)
 
 ### 🐛🚑️ Fixes
