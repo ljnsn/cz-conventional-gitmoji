@@ -50,6 +50,7 @@ pre_bump_hooks = ["uv lock --upgrade-package cz-conventional-gitmoji"]
 [tool.ruff]
 fix = true
 target-version = "py38"
+line-length = 88
 src = ["src", "tests"]
 
 [tool.ruff.format]
@@ -82,8 +83,26 @@ ignore = [
 unfixable = ["F401", "F841"]
 
 [tool.ruff.lint.per-file-ignores]
-# ignore usage of `assert` in tests
-"*/tests/*" = ["S101"]
+"test_*.py" = [
+    # The use of `datetime.datetime()` without `tzinfo` argument is not allowed
+    "DTZ001",
+    # positional boolean args
+    "FBT001",
+    # part of an implicit namespace package
+    "INP001",
+    # usage of `assert` in tests
+    "S101",
+    # suspicious non-cryptographic random usage
+    "S311",
+    # magic value used in comarison
+    "PLR2004",
+    # private member accessed
+    "SLF001",
+]
+"scripts/**/*.py" = [
+    # part of implicit namespace package
+    "INP001",
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["tests"]
