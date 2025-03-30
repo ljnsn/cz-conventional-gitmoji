@@ -46,8 +46,6 @@ repos:
       - id: conventional-gitmoji
 ```
 
-Make sure to install the relevant pre-commit hooks with
-
 To use `commitizen` hooks with `conventional-gitmoji`, you need to add the package as an extra dependency.
 
 ```yaml
@@ -57,6 +55,8 @@ To use `commitizen` hooks with `conventional-gitmoji`, you need to add the packa
       - id: commitizen
         additional_dependencies: [cz-conventional-gitmoji]
 ```
+
+Make sure to install the relevant pre-commit hooks with
 
 ```bash
 pre-commit install --install-hooks
