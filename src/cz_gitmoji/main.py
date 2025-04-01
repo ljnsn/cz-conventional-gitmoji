@@ -238,11 +238,9 @@ class CommitizenGitmojiCz(BaseCommitizen):
             {
                 "type": "input",
                 "name": "body",
-                "message": (
-                    "Provide additional contextual information about the code changes: "
-                    "(press [enter] to skip)\n"
-                ),
+                "message": "Provide additional contextual information about the code changes:\n",
                 "filter": multiple_line_breaker,
+                "multiline": True,
             },
             {
                 "type": "confirm",
