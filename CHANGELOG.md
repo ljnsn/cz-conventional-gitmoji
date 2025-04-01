@@ -1,3 +1,33 @@
+## v0.7.0 (2025-04-01)
+
+### ✨ Features
+
+- use multiline for body
+
+### build
+
+- **deps**: bump astral-sh/setup-uv from 3 to 4
+- **deps**: bump codecov/codecov-action from 4 to 5
+
+### 💚👷 CI & Build
+
+- **deps**: bump astral-sh/setup-uv from 4 to 5
+- set dependabot message
+
+### 📌➕⬇️➖⬆️ Dependencies
+
+- all
+
+### 📝💡 Documentation
+
+- move readme line to correct place
+
+### 🧹 chore
+
+- formatting
+- copier bump
+- copier bump
+
 ## v0.6.1 (2024-10-16)
 
 ### 🐛🚑️ Fixes
