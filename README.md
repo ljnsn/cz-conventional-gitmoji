@@ -41,7 +41,7 @@ To use it as a pre-commit hook, install this packages as well as `commitizen` an
 ```yaml
 repos:
   - repo: https://github.com/ljnsn/cz-conventional-gitmoji
-    rev: 0.2.4
+    rev: 0.7.0  # double-check the latest version (or run pre-commit autoupdate)
     hooks:
       - id: conventional-gitmoji
 ```
@@ -144,8 +144,9 @@ Commit with a message in conventional format that contains a valid type mapped b
 | `money` | 💸 |
 | `threading` | 🧵 |
 | `validation` | 🦺 |
-| `chore` | 🧹 |
+| `chore` | 🧹<sup>1</sup> |
 
+<sup>1</sup> This is an addition to the original Gitmojis.
 </details>
 
 ## Features
