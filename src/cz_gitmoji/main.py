@@ -2,14 +2,17 @@
 
 __all__ = ("CommitizenGitmojiCz",)
 
+
 import re
 from collections import OrderedDict
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, List
 
 from commitizen.cz.base import BaseCommitizen
 from commitizen.cz.utils import multiple_line_breaker, required_validator
 from commitizen.defaults import MAJOR, MINOR, PATCH
+from commitizen.question import CzQuestion
 
 from shared import utils
 from shared.gitmojis import GitmojiEnum as GJ  # noqa: N814
@@ -196,7 +199,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
         f"{GJ.PERF} Performance",
     ]
 
-    def questions(self) -> List[Dict[str, Any]]:
+    def questions(self) -> List[CzQuestion]:
         """Return the questions to ask the user."""
         return [
             {
@@ -240,7 +243,6 @@ class CommitizenGitmojiCz(BaseCommitizen):
                 "name": "body",
                 "message": "Provide additional contextual information about the code changes:\n",
                 "filter": multiple_line_breaker,
-                "multiline": True,
             },
             {
                 "type": "confirm",
@@ -258,7 +260,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
             },
         ]
 
-    def message(self, answers: Dict[str, Any]) -> str:
+    def message(self, answers: Mapping[str, Any]) -> str:
         """Generate a commit message from the answers."""
         prefix = answers["prefix"]
         scope = answers["scope"]

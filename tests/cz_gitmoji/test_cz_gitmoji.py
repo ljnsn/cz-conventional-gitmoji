@@ -47,7 +47,7 @@ def test_questions(cz_gitmoji: CommitizenGitmojiCz) -> None:
     questions = cz_gitmoji.questions()
     assert isinstance(questions, list)
     assert isinstance(questions[0], dict)
-    assert len(questions[0]["choices"]) == len(mojis)
+    assert len(questions[0]["choices"]) == len(mojis)  # type: ignore[typeddict-item]
 
 
 def test_message(
