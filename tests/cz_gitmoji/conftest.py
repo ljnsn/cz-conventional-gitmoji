@@ -1,8 +1,8 @@
 from typing import Any
 
 import pytest
-from commitizen import defaults
 from commitizen.config import BaseConfig
+from commitizen.defaults import DEFAULT_SETTINGS
 
 from cz_gitmoji.main import CommitizenGitmojiCz
 from shared.gitmojis import GitmojiEnum
@@ -12,7 +12,7 @@ from shared.gitmojis import GitmojiEnum
 def config():
     """Return a base config."""
     _config = BaseConfig()
-    _config.settings.update({"name": defaults.name})
+    _config.settings.update({"name": DEFAULT_SETTINGS["name"]})
     return _config
 
 
