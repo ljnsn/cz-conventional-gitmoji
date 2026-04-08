@@ -178,42 +178,48 @@ def test_run_with_options(tmp_path: Path):
     filepath = tmp_path / "commit-msg"
     filepath.write_text("custom: some feature")
 
-    with mock.patch(
-        "argparse.ArgumentParser.parse_args",
-        return_value=mock.MagicMock(
-            commit_msg_file=filepath.as_posix(),
-            message=None,
-            config="path/to/config",
-            allowed_prefixes=None,
-            convert_prefixes=None,
+    with (
+        mock.patch(
+            "argparse.ArgumentParser.parse_args",
+            return_value=mock.MagicMock(
+                commit_msg_file=filepath.as_posix(),
+                message=None,
+                config="path/to/config",
+                allowed_prefixes=None,
+                convert_prefixes=None,
+            ),
         ),
-    ), mock.patch(
-        "gitmojify.mojify.get_settings",
-        return_value=mock.MagicMock(
-            allowed_prefixes=["custom"],
-            convert_prefixes=["Merge"],
-            encoding="utf-8",
+        mock.patch(
+            "gitmojify.mojify.get_settings",
+            return_value=mock.MagicMock(
+                allowed_prefixes=["custom"],
+                convert_prefixes=["Merge"],
+                encoding="utf-8",
+            ),
         ),
     ):
         mojify.run()
         assert filepath.read_text(encoding="utf-8") == "custom: some feature"
 
     filepath.write_text("Merge some branch")
-    with mock.patch(
-        "argparse.ArgumentParser.parse_args",
-        return_value=mock.MagicMock(
-            commit_msg_file=filepath.as_posix(),
-            message=None,
-            config="path/to/config",
-            allowed_prefixes=None,
-            convert_prefixes=None,
+    with (
+        mock.patch(
+            "argparse.ArgumentParser.parse_args",
+            return_value=mock.MagicMock(
+                commit_msg_file=filepath.as_posix(),
+                message=None,
+                config="path/to/config",
+                allowed_prefixes=None,
+                convert_prefixes=None,
+            ),
         ),
-    ), mock.patch(
-        "gitmojify.mojify.get_settings",
-        return_value=mock.MagicMock(
-            allowed_prefixes=None,
-            convert_prefixes=["Merge"],
-            encoding="utf-8",
+        mock.patch(
+            "gitmojify.mojify.get_settings",
+            return_value=mock.MagicMock(
+                allowed_prefixes=None,
+                convert_prefixes=["Merge"],
+                encoding="utf-8",
+            ),
         ),
     ):
         mojify.run()

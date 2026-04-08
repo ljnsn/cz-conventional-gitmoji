@@ -52,7 +52,7 @@ pre_bump_hooks = ["uv lock --upgrade-package cz-conventional-gitmoji"]
 
 [tool.ruff]
 fix = true
-target-version = "py38"
+target-version = "py39"
 line-length = 88
 src = ["src", "tests"]
 
