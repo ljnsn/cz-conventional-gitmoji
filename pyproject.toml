@@ -24,8 +24,8 @@ cz_gitmoji = "cz_gitmoji.main:CommitizenGitmojiCz"
 [project.scripts]
 gitmojify = "gitmojify.mojify:run"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   "coverage[toml]>=7.2.7",
   "ipdb>=0.13.13",
   "ipython>=7.16.1,!=8.18.0",
@@ -35,6 +35,9 @@ dev-dependencies = [
   "pytest>=7.4.4",
   "ruff>=0.2.2",
 ]
+
+[tool.uv]
+default-groups = "all"
 
 [tool.commitizen]
 name = "cz_gitmoji"
