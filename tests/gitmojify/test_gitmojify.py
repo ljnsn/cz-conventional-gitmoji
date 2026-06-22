@@ -195,6 +195,7 @@ def test_run_with_options(tmp_path: Path):
                 allowed_prefixes=["custom"],
                 convert_prefixes=["Merge"],
                 encoding="utf-8",
+                use_github_emoji_code=False,
             ),
         ),
     ):
@@ -219,6 +220,7 @@ def test_run_with_options(tmp_path: Path):
                 allowed_prefixes=None,
                 convert_prefixes=["Merge"],
                 encoding="utf-8",
+                use_github_emoji_code=False,
             ),
         ),
     ):
@@ -288,4 +290,31 @@ def test_gitmojify_with_existing_gitmoji():
     """Test gitmojify with a message that already has a gitmoji."""
     message = "🐛 fix: resolve bug"
     result = mojify.gitmojify(message)
+    assert result == message
+
+
+@pytest.mark.parametrize(
+    ["message_in", "message_out"],
+    [
+        ("feat: some new feature", ":sparkles: feat: some new feature"),
+        ("docs(readme): add a section", ":memo: docs(readme): add a section"),
+        ("fix: resolve bug", ":bug: fix: resolve bug"),
+    ],
+)
+def test_gitmojify_github_code(message_in: str, message_out: str) -> None:
+    """Verify GitHub emoji codes are prepended when use_github_emoji_code=True."""
+    assert mojify.gitmojify(message_in, use_github_emoji_code=True) == message_out
+
+
+def test_gitmojify_github_code_already_present() -> None:
+    """Verify messages already prefixed with a GitHub code are returned as-is."""
+    message = ":sparkles: feat: already has code"
+    result = mojify.gitmojify(message, use_github_emoji_code=True)
+    assert result == message
+
+
+def test_gitmojify_github_code_emoji_already_present() -> None:
+    """Verify messages already prefixed with an emoji are returned as-is even when use_github_emoji_code=True."""
+    message = "✨ feat: already has emoji"
+    result = mojify.gitmojify(message, use_github_emoji_code=True)
     assert result == message
