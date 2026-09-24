@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 from shared.model import Gitmoji
@@ -20,7 +21,10 @@ def get_gitmojis() -> List[Gitmoji]:
 
 def get_type_group_pattern() -> str:
     """Return the type group pattern."""
-    return "|".join([f"({moji.icon} {{1,2}})?{moji.type}" for moji in get_gitmojis()])
+    return "|".join([
+        f"({re.escape(moji.code)} |{moji.icon} {{1,2}})?{moji.type}"
+        for moji in get_gitmojis()
+    ])
 
 
 def get_pattern() -> str:

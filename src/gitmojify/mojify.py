@@ -42,6 +42,7 @@ def gitmojify(
     message: str,
     allowed_prefixes: Optional[List[str]] = None,
     convert_prefixes: Optional[List[str]] = None,
+    use_github_emoji_code: bool = False,
 ) -> str:
     """
     Gitmojify the commit message.
@@ -55,6 +56,8 @@ def gitmojify(
         allowed_prefixes: Prefixes that should not raise an error, even though
             they're not following conventional standard.
         convert_prefixes: Prefixes that should be converted to gitmoji format.
+        use_github_emoji_code: If True, prepend the GitHub emoji code (e.g.
+            ``:sparkles:``) instead of the emoji character.
 
     Returns:
         The gitmojified message.
@@ -77,8 +80,9 @@ def gitmojify(
     gtype = match.group("type_group")
     if " " in gtype:  # maybe do a better check?
         return message
-    icon = _grouped_gitmojis()[gtype].icon
-    return f"{icon} {message}"
+    moji = _grouped_gitmojis()[gtype]
+    emoji = moji.code if use_github_emoji_code else moji.icon
+    return f"{emoji} {message}"
 
 
 def _write(filepath: Optional[Path], message: str, encoding: str) -> None:
@@ -120,6 +124,7 @@ def run() -> None:
             _filter_comments(msg),
             args.allowed_prefixes or settings.allowed_prefixes,
             args.convert_prefixes or settings.convert_prefixes,
+            use_github_emoji_code=settings.use_github_emoji_code,
         ),
         settings.encoding,
     )

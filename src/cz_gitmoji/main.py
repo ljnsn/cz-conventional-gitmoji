@@ -16,6 +16,18 @@ from commitizen.question import CzQuestion
 
 from shared import utils
 from shared.gitmojis import GitmojiEnum as GJ  # noqa: N814
+from shared.settings import get_settings
+
+
+def _add_github_code_entries(type_map: dict) -> dict:
+    """Extend a change_type_map with GitHub code key variants."""
+    icon_to_code = {m.icon: m.code for m in utils.get_gitmojis()}
+    extra = {}
+    for key, value in type_map.items():
+        icon, _, type_name = key.partition(" ")
+        if icon in icon_to_code:
+            extra[f"{icon_to_code[icon]} {type_name}"] = value
+    return {**type_map, **extra}
 
 
 def parse_scope(text: str) -> str:
@@ -40,12 +52,12 @@ class CommitizenGitmojiCz(BaseCommitizen):
     # if none of these match, version will not be bumped (unless manually specified)
     bump_pattern = (
         rf"^((BREAKING[\-\ ]CHANGE"
-        rf"|{GJ.BOOM}? ?boom"
-        rf"|{GJ.FEAT}? ?feat"
-        rf"|{GJ.FIX}? ?fix"
-        rf"|{GJ.HOTFIX}? ?hotfix"
-        rf"|{GJ.REFACTOR}? +refactor"
-        rf"|{GJ.PERF}? ?perf)"
+        rf"|{GJ.BOOM}? ?boom|:boom: boom"
+        rf"|{GJ.FEAT}? ?feat|:sparkles: feat"
+        rf"|{GJ.FIX}? ?fix|:bug: fix"
+        rf"|{GJ.HOTFIX}? ?hotfix|:ambulance: hotfix"
+        rf"|{GJ.REFACTOR}? +refactor|:recycle: refactor"
+        rf"|{GJ.PERF}? ?perf|:zap: perf)"
         r"(\(.+\))?"  # scope
         r"!?):"  # breaking
     )
@@ -54,24 +66,24 @@ class CommitizenGitmojiCz(BaseCommitizen):
         (
             (r"^.+!$", MAJOR),
             (r"^BREAKING[\-\ ]CHANGE", MAJOR),
-            (rf"^{GJ.BOOM}? ?boom", MAJOR),
-            (rf"^{GJ.FEAT}? ?feat", MINOR),
-            (rf"^{GJ.FIX}? ?fix", PATCH),
-            (rf"^{GJ.HOTFIX}? ?hotfix", PATCH),
-            (rf"^{GJ.REFACTOR}? ?refactor", PATCH),
-            (rf"^{GJ.PERF}? ?perf", PATCH),
+            (rf"^({GJ.BOOM}? ?|:boom: )boom", MAJOR),
+            (rf"^({GJ.FEAT}? ?|:sparkles: )feat", MINOR),
+            (rf"^({GJ.FIX}? ?|:bug: )fix", PATCH),
+            (rf"^({GJ.HOTFIX}? ?|:ambulance: )hotfix", PATCH),
+            (rf"^({GJ.REFACTOR}? ?|:recycle: )refactor", PATCH),
+            (rf"^({GJ.PERF}? ?|:zap: )perf", PATCH),
         )
     )
     bump_map_major_version_zero = OrderedDict(
         (
             (r"^.+!$", MINOR),
             (r"^BREAKING[\-\ ]CHANGE", MINOR),
-            (rf"^{GJ.BOOM}? ?boom", MINOR),
-            (rf"^{GJ.FEAT}? ?feat", MINOR),
-            (rf"^{GJ.FIX}? ?fix", PATCH),
-            (rf"^{GJ.HOTFIX}? ?hotfix", PATCH),
-            (rf"^{GJ.REFACTOR}? ?refactor", PATCH),
-            (rf"^{GJ.PERF}? ?perf", PATCH),
+            (rf"^({GJ.BOOM}? ?|:boom: )boom", MINOR),
+            (rf"^({GJ.FEAT}? ?|:sparkles: )feat", MINOR),
+            (rf"^({GJ.FIX}? ?|:bug: )fix", PATCH),
+            (rf"^({GJ.HOTFIX}? ?|:ambulance: )hotfix", PATCH),
+            (rf"^({GJ.REFACTOR}? ?|:recycle: )refactor", PATCH),
+            (rf"^({GJ.PERF}? ?|:zap: )perf", PATCH),
         )
     )
     # parse information for generating the change log
@@ -81,10 +93,12 @@ class CommitizenGitmojiCz(BaseCommitizen):
     )
     # exclude from changelog
     changelog_pattern = (
-        rf"^(?!{GJ.INIT}? ?init)(?!{GJ.MERGE}? ?merge)(?!{GJ.BUMP}? ?bump).*"
+        rf"^(?!({GJ.INIT}? ?|:tada: )init)"
+        rf"(?!({GJ.MERGE}? ?|:twisted_rightwards_arrows: )merge)"
+        rf"(?!({GJ.BUMP}? ?|:bookmark: )bump).*"
     )
-    # map types to changelog sections
-    change_type_map = {
+    # map types to changelog sections (both emoji icon and GitHub code keys)
+    change_type_map = _add_github_code_entries({
         # boom
         f"{GJ.BOOM} boom": f"{GJ.BOOM} Boom",
         # features
@@ -188,7 +202,7 @@ class CommitizenGitmojiCz(BaseCommitizen):
         f"{GJ.CATCH} egg": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
         f"{GJ.HEALTH} health": f"{GJ.SECRET}{GJ.WIP}{GJ.ANALYTICS}{GJ.TYPO}{GJ.POOP}{GJ.EXTERNAL}{GJ.BEER}{GJ.TEXT}{GJ.EGG}{GJ.SEED}{GJ.FLAG}{GJ.CATCH}{GJ.HEALTH} Others",
         # None: init, bump, merge
-    }
+    })
     # order sections in changelog. all other sections are ordered alphabetically
     change_type_order = [
         f"{GJ.BOOM} Boom",
@@ -201,6 +215,10 @@ class CommitizenGitmojiCz(BaseCommitizen):
 
     def questions(self) -> List[CzQuestion]:
         """Return the questions to ask the user."""
+        try:
+            use_code = get_settings().use_github_emoji_code
+        except Exception:
+            use_code = False
         return [
             {
                 "type": "list",
@@ -208,8 +226,8 @@ class CommitizenGitmojiCz(BaseCommitizen):
                 "message": "Select the type of change you are committing",
                 "choices": [
                     {
-                        "value": moji.value,
-                        "name": moji.name,
+                        "value": moji.code_value if use_code else moji.value,
+                        "name": moji.code_name if use_code else moji.name,
                     }
                     for moji in utils.get_gitmojis()
                 ],

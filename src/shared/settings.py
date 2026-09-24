@@ -16,6 +16,7 @@ class MojiSettings:
     convert_prefixes: List[str] = attrs.field(factory=lambda: DEFAULT_CONVERT_PREFIXES)
     conventional_types_only: bool = False
     conventional_messages: bool = False
+    use_github_emoji_code: bool = False
     encoding: str
 
 

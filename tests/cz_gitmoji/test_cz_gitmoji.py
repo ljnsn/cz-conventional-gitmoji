@@ -1,4 +1,5 @@
 from typing import Any, Dict, Optional, Tuple
+from unittest import mock
 
 import pytest
 from commitizen.cz.exceptions import AnswerRequiredError
@@ -97,3 +98,27 @@ def test_process_commit(cz_gitmoji: CommitizenGitmojiCz) -> None:
     invalid_commit = "This is not a valid commit message"
     processed = cz_gitmoji.process_commit(invalid_commit)
     assert processed == ""
+
+
+def test_questions_use_github_emoji_code(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify questions use GitHub code values when use_github_emoji_code=True."""
+    mock_settings = mock.MagicMock(use_github_emoji_code=True)
+    with mock.patch("cz_gitmoji.main.get_settings", return_value=mock_settings):
+        questions = cz_gitmoji.questions()
+
+    choices = questions[0]["choices"]  # type: ignore[typeddict-item]
+    assert len(choices) == len(mojis)
+    feat_choice = next(c for c in choices if "feat" in c["value"])
+    assert feat_choice["value"] == ":sparkles: feat"
+    assert feat_choice["name"].startswith(":sparkles: feat:")
+
+
+def test_questions_default_uses_emoji(cz_gitmoji: CommitizenGitmojiCz) -> None:
+    """Verify questions use emoji icon values by default."""
+    mock_settings = mock.MagicMock(use_github_emoji_code=False)
+    with mock.patch("cz_gitmoji.main.get_settings", return_value=mock_settings):
+        questions = cz_gitmoji.questions()
+
+    choices = questions[0]["choices"]  # type: ignore[typeddict-item]
+    feat_choice = next(c for c in choices if "feat" in c["value"])
+    assert feat_choice["value"] == "✨ feat"
